@@ -3,8 +3,8 @@
 INCLUDE Irvine32.inc
 
 .data
-op byte "*****************************Parking Management System*****************************",0
-op1 byte "*****************************Login as Admininstrator*****************************",0
+op byte "************************************Welcome To Parking Management System************************************",0
+op1 byte "*******************************************Login as Admininstrator*********************************************",0
 op2 byte "Enter UserName: ",0
 op3 byte "Enter Password: ",0
 
@@ -37,35 +37,109 @@ msg12 db "***Record deleted successfully***",0
 msg13 db "Wrong Password Enter Again",0
 msg14 db "Successfully Login ",0
 
-tvacy dd 50
-tamount dd 0
-tcount dd  0
-am1 dd ?
-am2 dd ?
-am3 dd ?
-opt1 dd ?
-password dd ?
-username dd ?
+tvacy dword 50
+tamount dword 0
+tcount dword  0
+am1 dword ?
+am2 dword ?
+am3 dword ?
+select dword ?
+password byte 20 dup(?)
+username byte 20 dup(?)
 
-storage dd 150 dup(?) 
+storage dword 150 dup(?) 
 
 passfile byte "password.txt",0 
 fhandler dword ?
-temp dd ?
+
+tempuser byte ?
+temppass byte ?
+;tempo    byte 6 DUP(?)                                                     ;Array to store read files
+
 
 .code
+
 main proc
 
-mov edx,offset passfile
-call openInputFile
-mov edx, offset temp
-mov ecx, 6
+call crlf
+mov edx,offset op                         
+call writestring                            ;------To Write 
+call crlf                                   ;      welcm msg-----
+call crlf
+
+call crlf
+mov edx,offset op1                         
+call writestring                            ;------To Write 
+call crlf                                   ;      Login msg-----
+call crlf
+
+jmp goout									;in order to avoid the running of wrong tag 
+
+wrong:                                      ;in case if password is wrong
+
+mov edx, offset msg13
+call writestring							;to show the msg of wrong input
+call crlf
+jmp goout 
+
+goout:
+
+mov edx,offset op2                      
+call writestring                            ;------To Write Enter user name msg-----
+
+mov edx,offset username
+mov ecx, sizeof username
+call readString  							; Enter user name
+call crlf  
+
+;mov edx,offset username
+;call writestring                            ;username output
+        
+
+mov edx,offset op3                      
+call writestring                            ;------To Write Enter password msg-----
+
+mov edx,offset password
+mov ecx, sizeof password
+call readString  							; Enter password
+call crlf 
+
+;mov edx,offset password					;password output
+;call writestring
+ 
+                                 ;Check IF password is right or wrong   / File Handling
+
+
+mov edx,offset passfile             ;passing file's offset to open in edx  
+call openInputFile                  ;open input file  
+mov fhandler,eax                    ;storing file handler
+
+mov edx, offset tempuser			;reading user name
+mov ecx, 4                          ;giving size to read
+call readfromfile					
+
+;mov edx, offset tempuser
+;call writestring
+
+mov eax,fhandler					;moving file handler in eax
+mov edx, offset temppass			
+mov ecx, 6							;reading password
 call readfromfile
 
+;mov edx,offset temppass
+;call writestring
 
+INVOKE Str_compare, ADDR temppass, ADDR password  ;comparring the credentials of the system
+jne wrong
+
+
+T1:		
+mov edx, offset msg14
 call writestring
-			
+jmp _exit
 
+_exit:
 exit	
 main endp
-end main
+
+END main
