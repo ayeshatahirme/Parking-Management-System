@@ -242,17 +242,17 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint				; Input date you parked
+						call readint				; Input date you parked in
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint				; Input month you parked
+						call readint				; Input month you parked in
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint				; Input month you parked
+						call readint				; Input month you parked in
 						mov yearin, eax
 						call crlf
 						
@@ -270,17 +270,17 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint				; Input date you parked
+						call readint				; Input date you parked in
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint				; Input month you parked
+						call readint				; Input month you parked in
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint				; Input year you parked
+						call readint				; Input year you parked in
 						mov yearin, eax
 						call crlf
 						
@@ -298,17 +298,17 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint					; Input date you parked
+						call readint					; Input date you parked in
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint					; Input month you parked
+						call readint					; Input month you parked in
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint					; Input year you parked
+						call readint					; Input year you parked in
 						mov yearin, eax
 						call crlf
 						
@@ -357,17 +357,17 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint				; ; Input date you parked
+						call readint				; ; Input date you parked in
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint				; Input month you parked
+						call readint				; Input month you parked in
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint				; Input year you parked
+						call readint				; Input year you parked in
 						mov yearin, eax
 						call crlf
 						
@@ -385,17 +385,17 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint					; Input date you parked
+						call readint					; Input date you parked in
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint					; Input month you parked
+						call readint					; Input month you parked in
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint					; Input year you parked
+						call readint					; Input year you parked in
 						mov yearin, eax
 						call crlf
 						
@@ -412,17 +412,17 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint					; Input date you parked
+						call readint					; Input date you parked in
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint					; Input month you parked
+						call readint					; Input month you parked in
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint					; Input year you parked
+						call readint					; Input year you parked in
 						mov yearin, eax
 						call crlf
 						dec count
