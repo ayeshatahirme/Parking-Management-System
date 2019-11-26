@@ -145,8 +145,10 @@ main endp
 END main
 
 
-;(((((((((((((((((((((((((((((((((((((((((((((((( PROJECT )))))))))))))))))))))))))))))))))))))))))))))))
-;------------------------------------------- PARKING MANAGEMENT SYSTEM -------------------------------------
+
+
+;((((((((((((((((((((((((( PROJECT )))))))))))))))))))))))
+;------------------- PARKING MANAGEMENT SYSTEM ---------------
  
  INCLUDE Irvine32.inc 
  
@@ -161,6 +163,8 @@ header1 Byte 0dh,0ah,"------------------------ PARING MANAGEMENT SYSTEM --------
 msg1 Byte 0dh,0ah,"1. Park in  ",0 
 msg2 Byte 0dh,0ah,"2. Park out  ",0
 msg3 Byte 0dh,0ah,"3. Logout  ",0
+msg4 Byte 0dh,0ah,"---------- YOUR VEHICLE IS PARKED IN ----------",0
+msg5 Byte 0dh,0ah,"---------- YOUR VEHICLE IS PARKED OUT ----------",0
 op Byte 0dh,0ah,"-> Select vehicle to park:  ",0
 op1 Byte 0dh,0ah,"1. Motorbike  ",0
 op2 Byte 0dh,0ah,"2. Car  ",0
@@ -178,59 +182,145 @@ data7 Byte 0dh,0ah,"--------------------- Thanks for coming! Have a nice day. --
 header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 .code 
  
-	main PROC  
-		L0:										; Main page of system
+	main PROC
+	
+; *********************** MAIN PAGE ************************
+	
+	mainpage:										; Main page of system
 		    mov edx, offset header1
 			call WriteString
 			call crlf
 
-			mov edx, offset msg1
+			mov edx, offset msg1						; showing parkin option
 			call WriteString
 
-			mov edx, offset msg2
+			mov edx, offset msg2						; showing parkout option
 			call WriteString
 
-			mov edx, offset msg3
+			mov edx, offset msg3						; showing logout option
 			call WriteString
 			call crlf
-			call readint						; Input option to parkin, out ot logout
+			call readint								; Input option to parkin, park out or to logout
+			cmp eax, 2									; check what user wants (parkin, parkout, logout)
+
+			jl parkin
+			je parkout
+			jg _exit
+
+; ********************* PARKING IN CONDITION *********************
+
+		parkin:										; Condition for parking in
+			mov edx, offset op
+			call WriteString
+			call crlf
+			mov edx, offset op1
+			call WriteString
+
+			mov edx, offset op2
+			call WriteString
+
+			mov edx, offset op3
+			call WriteString
+
+			mov edx, offset op4
+			call WriteString
+
+			mov edx, offset op5
+			call WriteString
+			call crlf
+			call readint				; Input vehicle you want to park or exit from page
+				
+			cmp eax, 5					; ---- check what user wants 
+			je _exit					; park bike, car or van
+			cmp eax, 4					; or to go back -----
+			je mainpage
 			cmp eax, 2
-
-			jl L1
-			je L2
-			jg L7
-
-			L1:								; Condition for parking in
-				mov edx, offset op
-				call WriteString
-				call crlf
-				mov edx, offset op1
-				call WriteString
-
-				mov edx, offset op2
-				call WriteString
-
-				mov edx, offset op3
-				call WriteString
-
-				mov edx, offset op4
-				call WriteString
-
-				mov edx, offset op5
-				call WriteString
-				call crlf
-				call readint				; Input vehicle you want to park or exit fron page
-				cmp eax, 5
-				je L7
-				cmp eax, 4
-				je L0
-				cmp eax, 2
-				jl L4
-				je L5
-				jg L6
+				
+			jl Tbike
+			je Tcar
+			jg Tvan
+			
+			;jmp parkin						; Returning back to parking in options
 				
 				
-					L4:							; Condition for parking bike
+; *********************** PARKING OUT CONDITION **********************
+
+		parkout:										; Condition for parking out
+			mov edx, offset header2
+			call WriteString
+			call crlf
+
+			mov edx, offset op1								; Showing vehicles user can park
+			call WriteString
+
+			mov edx, offset op2
+			call WriteString
+
+			mov edx, offset op3
+			call WriteString
+				
+			mov edx, offset op4
+			call WriteString
+
+			mov edx, offset op5
+			call WriteString
+			call crlf
+			call readint							; Input which vehicle to park out
+				
+			cmp eax, 5								; ---- check what user wants 
+			je _exit								; park bike, car or van
+			cmp eax, 4								; or to go back ----
+			je mainpage
+			cmp eax, 2
+				
+			jl Toutbike
+			je Toutcar
+			jg Toutvan
+
+			jmp parkout
+				
+
+; ***************************** TAGS FOR PARKING IN ************************************
+
+	Tbike:
+		call parkbike
+		jmp parkin
+	Tcar:
+		call parkcar
+		jmp parkin
+	Tvan:
+		call parkvan
+		jmp parkin
+
+; ***************************** TAGS FOR PARKING OUT ************************************
+
+	Toutbike:
+		call bikeout
+		jmp parkout
+	Toutcar:
+		call carout
+		jmp parkout
+	Toutvan:
+		call vanout
+		jmp parkout
+
+
+; ***************************** EXIT PROGRAM ************************************
+			_exit:									; Condition for exiting system
+				mov edx, offset data7
+				call WriteString
+				call crlf
+				exit
+				main ENDP 
+
+
+
+; ******************************************************************************************
+; ********************************** P R O C E D U R E S ***********************************
+; ******************************************************************************************
+ 
+ ; ********* P A R K I N G - B I K E ********* 
+ parkbike PROC												; Condition for parking bike
 						mov edx, offset data1
 						call WriteString
 						call readint
@@ -242,24 +332,31 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint				; Input date you parked in
+						call readint						; Input date you parked
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint				; Input month you parked in
+						call readint						; Input month you parked
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint				; Input month you parked in
+						call readint						; Input month you parked
 						mov yearin, eax
 						call crlf
 						
 						inc count
-						jmp L1						; Returning back to parking in options
+						
+						mov edx, offset msg4
+						call WriteString
+						call crlf
+						ret
 
-					L5:								; Condition for parking car
+parkbike ENDP
+
+; ********* P A R K I N G - C A R ********* 
+parkcar PROC												; Condition for parking car
 						mov edx, offset data3
 						call WriteString
 						call readint
@@ -270,24 +367,31 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint				; Input date you parked in
+						call readint						; Input date you parked
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint				; Input month you parked in
+						call readint						; Input month you parked
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint				; Input year you parked in
-						mov yearin, eax
+						call readint						; Input year you parked
+						mov yearin, eax	
 						call crlf
 						
 						inc count
-						jmp L1							; Returning back to parking in options
 
-					L6:									; Condition for parking van
+						mov edx, offset msg4
+						call WriteString
+						call crlf
+						
+						ret
+parkcar ENDP
+
+; ********* P A R K I N G - V A N ********* 
+parkvan PROC												; Condition for parking van
 						mov edx, offset data5
 						call WriteString
 						call readint
@@ -298,57 +402,34 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint					; Input date you parked in
+						call readint						; Input date you parked
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint					; Input month you parked in
+						call readint						; Input month you parked
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint					; Input year you parked in
+						call readint						; Input year you parked
 						mov yearin, eax
 						call crlf
 						
 						inc count
-						jmp L1							; Returning back to parking in options
 
-				L2:										; Condition for parking out
-				mov edx, offset header2
-				call WriteString
-				call crlf
+						mov edx, offset msg4
+						call WriteString
+						call crlf
+						
+						ret
+parkvan ENDP
 
-				mov edx, offset op1
-				call WriteString
-
-				mov edx, offset op2
-				call WriteString
-
-				mov edx, offset op3
-				call WriteString
-				
-				mov edx, offset op4
-				call WriteString
-
-				mov edx, offset op5
-				call WriteString
-				call crlf
-				call readint							; Input which vehicle to park out
-				cmp eax, 5
-				je L7
-				cmp eax, 4
-				je L0
-				cmp eax, 2
-				jl J1
-				je J2
-				jg J3
-
-				J1:									; Condition for parking out bike
+; ********* P A R K I N G - B I K E O U T ********* 
+bikeout PROC												; Condition for parking out bike
 					mov edx, offset data1
 						call WriteString
-						call readint				; Input number of bike parked
+						call readint						; Input number of bike parked
 						mov number, eax
 
 						mov edx, offset date0
@@ -357,26 +438,34 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint				; ; Input date you parked in
+						call readint						; Input date you parked
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint				; Input month you parked in
+						call readint						; Input month you parked
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint				; Input year you parked in
+						call readint						; Input year you parked
 						mov yearin, eax
 						call crlf
 						
 						dec count
-						jmp L2
-				J2:										; Condition for parking out car
+
+						mov edx, offset msg5
+						call WriteString
+						call crlf
+
+						ret
+bikeout ENDP
+
+; ********* P A R K I N G - C A R O U T ********* 
+carout PROC													; Condition for parking out car
 						mov edx, offset data3
 						call WriteString
-						call readint					; Input number of car parked
+						call readint						; Input number of car parked
 						mov number, eax
 
 						mov edx, offset date0
@@ -385,26 +474,34 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint					; Input date you parked in
+						call readint						; Input date you parked
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint					; Input month you parked in
+						call readint						; Input month you parked
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint					; Input year you parked in
+						call readint						; Input year you parked
 						mov yearin, eax
 						call crlf
 						
 						dec count
-						jmp L2
-				J3:										; Condition for parking out van
+
+						mov edx, offset msg5
+						call WriteString
+						call crlf
+
+						ret
+carout ENDP
+
+; ********* P A R K I N G - V A N O U T ********* 
+vanout PROC													; Condition for parking out van
 						mov edx, offset data5
 						call WriteString
-						call readint					; Input number of van parked
+						call readint						; Input number of van parked
 						mov number, eax
 
 						mov edx, offset date0
@@ -412,26 +509,27 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 						mov edx, offset date1
 						call WriteString
-						call readint					; Input date you parked in
+						call readint						; Input date you parked
 						mov datein, eax
 
 						mov edx, offset date2
 						call WriteString
-						call readint					; Input month you parked in
+						call readint						; Input month you parked
 						mov monthin, eax
 
 						mov edx, offset date3
 						call WriteString
-						call readint					; Input year you parked in
+						call readint						; Input year you parked
 						mov yearin, eax
 						call crlf
+						
 						dec count
-						jmp L2
-				
-				L7:									; Condition for exiting system
-					mov edx, offset data7
-					call WriteString
-					call crlf
-				   exit
-				   main ENDP 
- END main 
+
+						mov edx, offset msg5
+						call WriteString
+						call crlf
+
+						ret
+vanout ENDP
+
+END main
