@@ -3,30 +3,32 @@
 INCLUDE Irvine32.inc
 
 .data
-op byte "************************************Welcome To Parking Management System************************************",0
-op1 byte "*******************************************Login as Admininstrator*********************************************",0
-op2 byte "Enter UserName: ",0
-op3 byte "Enter Password: ",0
+opt byte "            *************************Welcome To Parking Management System************************************",0
+opt1 byte "           ********************************Login as Admininstrator*********************************************",0
+opt2 byte "Enter UserName: ",0
+opt3 byte "Enter Password: ",0
 
-op4 byte "Press 1 for Parking In ",0
-op5 byte "Press 2 for Parking Out ",0
+msg1 Byte 0dh,0ah,"1. Park in  ",0 
+msg2 Byte 0dh,0ah,"2. Park out  ",0
+msg3 Byte 0dh,0ah,"3. Logout  ",0
+msg4 Byte 0dh,0ah,"---------- YOUR VEHICLE IS PARKED IN ----------",0
+msg5 Byte 0dh,0ah,"---------- YOUR VEHICLE IS PARKED OUT ----------",0
+op Byte 0dh,0ah,"-> Menu:  ",0
+op1 Byte 0dh,0ah,"1. Motorbike  ",0
+op2 Byte 0dh,0ah,"2. Car  ",0
+op3 Byte 0dh,0ah,"3. Van  ",0
+op4 Byte 0dh,0ah,"4. Back  ",0
+op5 Byte 0dh,0ah,"5. Exit  ",0
+data1 Byte 0dh,0ah,"Enter your bike's number:  ",0
+date0 Byte 0dh,0ah,"Fill out following entry date details:  ",0
+date1 Byte 0dh,0ah,"Date:  ",0
+date2 Byte 0dh,0ah,"Month:  ",0
+date3 Byte 0dh,0ah,"Year:  ",0
+data3 Byte 0dh,0ah,"Enter your car's number:  ",0
+data5 Byte 0dh,0ah,"Enter your van's number:  ",0
+data7 Byte 0dh,0ah,"--------------------- Thanks for coming! Have a nice day. --------------------  ",0
+header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
-op6 byte '*****************MENU*********************$'
-op7 byte "Press 1 for bikes",0
-opt7 byte "Enter vehical No.",0
-opt8 byte "Enter date in.",0
-opt9 byte "Enter date out",0
-;op7 byte "Press 1 for bike",0
-op8 byte "Press 2 for cars",0
-op9 byte "Press 3 for van",0
-op10 byte "Press 4 to show the record",0
-op11 byte "Press 5 to delete the record",0
-op12 byte "Press 6 to exit",0
-msg1 db "Parking Is Full.",0
-msg2 db "Wrong input.",0
-msg3 db "car.",0
-msg4 db "bus. ",0
-msg5 db "record",0
 msg6 db "there is more space: ",0
 msg7 db "the total amount is: ",0
 msg8 db "the total numbers of vehicles parked: ",0
@@ -39,22 +41,35 @@ msg14 db "Successfully Login ",0
 
 tvacy dword 50
 tamount dword 0
-tcount dword  0
+;tcount dword  0
 am1 dword ?
 am2 dword ?
 am3 dword ?
-select dword ?
+
+count Dword 0
+number Dword ?
+datein Dword ?
+monthin Dword ?
+yearin Dword ?
+
+
+
+
+
 password byte 20 dup(?)
 username byte 20 dup(?)
 
 storage dword 150 dup(?) 
 
 passfile byte "password.txt",0 
+
+
 fhandler dword ?
+
+
 
 tempuser byte ?
 temppass byte ?
-;tempo    byte 6 DUP(?)                                                     ;Array to store read files
 
 
 .code
@@ -62,13 +77,13 @@ temppass byte ?
 main proc
 
 call crlf
-mov edx,offset op                         
+mov edx,offset opt                         
 call writestring                            ;------To Write 
 call crlf                                   ;      welcm msg-----
 call crlf
 
 call crlf
-mov edx,offset op1                         
+mov edx,offset opt1                         
 call writestring                            ;------To Write 
 call crlf                                   ;      Login msg-----
 call crlf
@@ -84,7 +99,7 @@ jmp goout
 
 goout:
 
-mov edx,offset op2                      
+mov edx,offset opt2                      
 call writestring                            ;------To Write Enter user name msg-----
 
 mov edx,offset username
@@ -96,7 +111,7 @@ call crlf
 ;call writestring                            ;username output
         
 
-mov edx,offset op3                      
+mov edx,offset opt3                      
 call writestring                            ;------To Write Enter password msg-----
 
 mov edx,offset password
@@ -106,90 +121,22 @@ call crlf
 
 ;mov edx,offset password					;password output
 ;call writestring
- 
-                                 ;Check IF password is right or wrong   / File Handling
 
+                                           ;Calling function to read from file
 
-mov edx,offset passfile             ;passing file's offset to open in edx  
-call openInputFile                  ;open input file  
-mov fhandler,eax                    ;storing file handler
-
-mov edx, offset tempuser			;reading user name
-mov ecx, 4                          ;giving size to read
-call readfromfile					
-
-;mov edx, offset tempuser
-;call writestring
-
-mov eax,fhandler					;moving file handler in eax
-mov edx, offset temppass			
-mov ecx, 6							;reading password
-call readfromfile
-
-;mov edx,offset temppass
-;call writestring
-
-INVOKE Str_compare, ADDR temppass, ADDR password  ;comparring the credentials of the system
-jne wrong
-
+call file1
+												 ;Check IF password is right or wrong
+INVOKE Str_compare, ADDR temppass, ADDR password ;comparring the credentials of the system
+jne wrong                                       ;if wrong check senond pssword
+jmp T1											 ;jmp if password is right
 
 T1:		
 mov edx, offset msg14
 call writestring
-jmp _exit
 
-_exit:
-exit	
-main endp
-
-END main
-
-
-
-
-;((((((((((((((((((((((((( PROJECT )))))))))))))))))))))))
-;------------------- PARKING MANAGEMENT SYSTEM ---------------
- 
- INCLUDE Irvine32.inc 
- 
-.data 
-
-count Dword 0
-number Dword ?
-datein Dword ?
-monthin Dword ?
-yearin Dword ?
-header1 Byte 0dh,0ah,"------------------------ PARING MANAGEMENT SYSTEM ------------------------ ",0
-msg1 Byte 0dh,0ah,"1. Park in  ",0 
-msg2 Byte 0dh,0ah,"2. Park out  ",0
-msg3 Byte 0dh,0ah,"3. Logout  ",0
-msg4 Byte 0dh,0ah,"---------- YOUR VEHICLE IS PARKED IN ----------",0
-msg5 Byte 0dh,0ah,"---------- YOUR VEHICLE IS PARKED OUT ----------",0
-op Byte 0dh,0ah,"-> Select vehicle to park:  ",0
-op1 Byte 0dh,0ah,"1. Motorbike  ",0
-op2 Byte 0dh,0ah,"2. Car  ",0
-op3 Byte 0dh,0ah,"3. Van  ",0
-op4 Byte 0dh,0ah,"4. Back  ",0
-op5 Byte 0dh,0ah,"5. Exit  ",0
-data1 Byte 0dh,0ah,"Enter your bike's number:  ",0
-date0 Byte 0dh,0ah,"Fill out following entry date details:  ",0
-date1 Byte 0dh,0ah,"Date:  ",0
-date2 Byte 0dh,0ah,"Month:  ",0
-date3 Byte 0dh,0ah,"Year:  ",0
-data3 Byte 0dh,0ah,"Enter your car's number:  ",0
-data5 Byte 0dh,0ah,"Enter your van's number:  ",0
-data7 Byte 0dh,0ah,"--------------------- Thanks for coming! Have a nice day. --------------------  ",0
-header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
-.code 
- 
-	main PROC
-	
 ; *********************** MAIN PAGE ************************
 	
 	mainpage:										; Main page of system
-		    mov edx, offset header1
-			call WriteString
-			call crlf
 
 			mov edx, offset msg1						; showing parkin option
 			call WriteString
@@ -205,7 +152,7 @@ header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 
 			jl parkin
 			je parkout
-			jg _exit
+			jg goout
 
 ; ********************* PARKING IN CONDITION *********************
 
@@ -532,4 +479,42 @@ vanout PROC													; Condition for parking out van
 						ret
 vanout ENDP
 
+
+
+
+
+;           ***************************************************************************************************
+;           ************************************ P R O C E D U R E S ******************************************
+;           ***************************************************************************************************
+
+
+
+file1 PROC						    ;Procedure to read from file 1
+
+                                     ;File Handling
+
+mov edx,offset passfile             ;passing file's offset to open in edx  
+call openInputFile                  ;open input file  
+mov fhandler,eax                    ;storing file handler
+
+mov edx, offset tempuser			;reading user name
+mov ecx, 4                          ;giving size to read
+call readfromfile					
+
+;mov edx, offset tempuser
+;call writestring
+
+mov eax,fhandler					;moving file handler in eax
+mov edx, offset temppass			
+mov ecx, 6							;reading password
+call readfromfile
+
+;mov edx,offset temppass
+;call writestring
+
+;call closefile
+RET
+file1 endp
+
 END main
+
