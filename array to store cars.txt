@@ -39,8 +39,9 @@ msg11 db "the total number of vans parked ",0
 msg12 db "***Record deleted successfully***",0
 msg13 db "Wrong Password or username Enter Again",0
 msg14 db "Successfully Login ",0
+msg15 db "Sorry! Parking is Full ",0
 
-tvacy dword 5
+tvacy dword 50
 tamount dword 0
 ;totalcount dword  0
 bikeamount dword 100
@@ -60,8 +61,6 @@ yearin dword ?
 password byte 20 dup(?)
 username byte 20 dup(?)
 
-total dword 150 dup(?) 
-
 passfile byte "password.txt",0 
 
 
@@ -69,23 +68,25 @@ fhandler dword ?
 
 
 
-
 tempuser byte 20 dup(?)
 temppass byte 20 dup (?)
 
 
+
+
 carno byte 55 dup(0)
-adin byte 55 dup(0)
+adin byte 55 dup(0)                 ;Arrays to store credentials
 adout byte 55 dup(0)
 
 
 
 vNo byte 11 dup(0)
-din byte 11 dup(0)
+din byte 11 dup(0)				;Variables to enter credentials
 dout byte 11 dup(0)
 
 siz dword 11   ;used to calculate next variable
 cal dword ?    ;calculate where is the next variable in array
+
 .code
 
 main proc
@@ -96,9 +97,72 @@ call writestring                            ;------To Write
 call crlf                                   ;      welcm msg-----
 call crlf
 
+call crlf
+mov edx,offset opt1                         
+call writestring                            ;------To Write 
+call crlf                                   ;      Login msg-----
+call crlf
+
+jmp goout									;in order to avoid the running of wrong tag 
+
+wrong:                                      ;in case if password is wrong
+
+mov edx, offset msg13
+call writestring							;to show the msg of wrong input
+call crlf
+jmp goout 
+
+goout:
+
+mov edx,offset opt2                      
+call writestring                            ;------To Write Enter user name msg-----
+
+mov edx,offset username
+mov ecx, sizeof username
+call readString  							; Enter user name
+call crlf  
+
+;mov edx,offset username
+;call writestring                            ;username output
+        
+
+mov edx,offset opt3                      
+call writestring                            ;------To Write Enter password msg-----
+
+mov edx,offset password
+mov ecx, sizeof password
+call readString  							; Enter password
+call crlf 
+
+;mov edx,offset password					;password output
+;call writestring
+
+
+
+; ********* C H E C K I N G - 1 S T - P A S S W O R D - A N D - U S E R N A M E  ********* 
+                                        
+
+call pass1										   ;Calling function to read from file
+
+													;Check if user name is right
+INVOKE Str_compare, ADDR tempuser, ADDR username ;comparring the credentials of the system
+jne wrong												;if correct check password
+
+												 ;Check IF password is right or wrong
+INVOKE Str_compare, ADDR temppass, ADDR password ;comparring the credentials of the system
+jne wrong                                       ;if wrong check senond pssword
+jmp T1											 ;jmp if password is right
+
+
+T1:		
+
+mov edx, offset msg14
+call writestring
 
 ; *********************** MAIN PAGE ************************
-mainpage:
+	
+	mainpage:										; Main page of system
+
 			mov edx, offset msg1						; showing parkin option
 			call WriteString
 
@@ -112,7 +176,8 @@ mainpage:
 			cmp eax, 2									; check what user wants (parkin, parkout, logout)
 
 			jl parkin
-
+			je parkout
+			jg goout
 
 ; ********************* PARKING IN CONDITION *********************
 
@@ -150,6 +215,42 @@ mainpage:
 			;jmp parkin						; Returning back to parking in options
 				
 				
+; *********************** PARKING OUT CONDITION **********************
+
+		parkout:										; Condition for parking out
+			mov edx, offset header2
+			call WriteString
+			call crlf
+
+			mov edx, offset op1								; Showing vehicles user can park
+			call WriteString
+
+			mov edx, offset op2
+			call WriteString
+
+			mov edx, offset op3
+			call WriteString
+				
+			mov edx, offset op4
+			call WriteString
+
+			mov edx, offset op5
+			call WriteString
+			call crlf
+			call readint							; Input which vehicle to park out
+				
+			cmp eax, 5								; ---- check what user wants 
+			je _exit								; park bike, car or van
+			cmp eax, 4								; or to go back ----
+			je mainpage
+			cmp eax, 2
+				
+			jl Toutbike
+			je Toutcar
+			jg Toutvan
+
+			jmp parkout
+				
 
 ; ***************************** TAGS FOR PARKING IN ************************************
 
@@ -163,6 +264,17 @@ mainpage:
 		call parkvan
 		jmp parkin
 
+; ***************************** TAGS FOR PARKING OUT ************************************
+
+	Toutbike:
+		call bikeout
+		jmp parkout
+	Toutcar:
+		call carout
+		jmp parkout
+	Toutvan:
+		call vanout
+		jmp parkout
 
 
 ; ***************************** EXIT PROGRAM ************************************
@@ -180,27 +292,41 @@ mainpage:
 ; ******************************************************************************************
  
  ; ********* P A R K I N G - B I K E ********* 
- parkbike PROC												; Condition for parking bike
-						mov edx, offset data1
+parkbike PROC												; Condition for parking bike
+
+						CMP occvacancy, 3
+						jge Full                     ;If Vacany is Full
+
+;             ------------E N T E R -  B I K E ' S - N U M B E R------------
+
+						mov edx, offset data1       ;msg to write number
 						call WriteString
 
 						mov edx,offset vNo
-						mov ecx,sizeof vNo
+						mov ecx,sizeof vNo			;take vehical no from user
 						call readstring
 
 						mov edx, offset vNo
-						call WriteString
+						call WriteString			;printing that no
 
 						;mov edx,offset vNo
 						;mov esi, offset carno
-						mov ecx,sizeof vNo
 
-						mov eax,occvacancy
-						mul siz
-						mov cal,eax
-						call writeint
-						mov esi,eax
-						mov edx,0
+						mov ecx,sizeof vNo			;In loop give sizeof vehical number
+
+						mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+						mul siz					;multiplying it with 11 (size of each) 33
+						mov cal,eax					;mov it in cal
+
+						call crlf
+						call writeint			;checking the value
+						call crlf
+
+						mov esi,eax				;give esi that size like 33
+						mov edx,0				;give edx the starting address of variable which stores bike's number
+
+						;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
 						copy:
 					    mov al, vNo[edx]
 					    mov carno[esi],al
@@ -208,38 +334,336 @@ mainpage:
 						inc esi
 						loop copy
 
-						inc occvacancy
-						mov esi,11
-						mov al , carno[esi]
-						call writechar
+				 ;             ------------E N T E R -  D A T E - I N------------
+
+				 mov edx, offset date1       ;msg to write number
+						call WriteString
+
+						mov edx,offset din
+						mov ecx,sizeof din			;take Date in from user
+						call readstring
+
+						mov edx, offset din
+						call WriteString			;printing that date
+
+						;mov edx,offset vNo
+						;mov esi, offset carno
+
+						mov ecx,sizeof din			;In loop give sizeof vehical number
+
+						mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+						mul siz					;multiplying it with 11 (size of each) 33
+						mov cal,eax					;mov it in cal
+
+						call crlf
+						call writeint			;checking the value
+						call crlf
+
+						mov esi,eax				;give esi that size like 33
+						mov edx,0				;give edx the starting address of variable which stores bike's number
+
+						;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+						copy1:
+					    mov al, din[edx]
+					    mov adin[esi],al
+						inc edx
+						inc esi
+						loop copy1
+
+
+						inc occvacancy		;updated total occupied vacay
+
+					;	mov esi,11
+					;	mov al , carno[esi]
+					;	call writechar
 	
 						mov esi,0
-						mov ecx,22
+						mov ecx,33
 						co:
 					    mov al, carno[esi]
-						call writechar
+					    call writechar
 						inc esi
 						loop co
 
+						mov esi,0
+						mov ecx,33
+						co1:
+					    mov al, adin[esi]
+					    call writechar
+						inc esi
+						loop co1
+
+						jmp exit1
+
+
+						Full:
+						mov edx, offset msg15			;in case of full vacancy
+						call WriteString
+						jmp exit1
+
+						exit1:
 						ret
 
 parkbike ENDP
 
 ; ********* P A R K I N G - C A R ********* 
 parkcar PROC												; Condition for parking car
-						mov edx, offset data3
+				
+						CMP occvacancy, 3
+						jge Full                     ;If Vacany is Full
+
+;             ------------E N T E R -  B I K E ' S - N U M B E R------------
+
+						mov edx, offset data3       ;msg to write number
 						call WriteString
 
+						mov edx,offset vNo
+						mov ecx,sizeof vNo			;take vehical no from user
+						call readstring
+
+						mov edx, offset vNo
+						call WriteString			;printing that no
+
+						;mov edx,offset vNo
+						;mov esi, offset carno
+
+						mov ecx,sizeof vNo			;In loop give sizeof vehical number
+
+						mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+						mul siz					;multiplying it with 11 (size of each) 33
+						mov cal,eax					;mov it in cal
+
+						call crlf
+						call writeint			;checking the value
+						call crlf
+
+						mov esi,eax				;give esi that size like 33
+						mov edx,0				;give edx the starting address of variable which stores bike's number
+
+						;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+						copy:
+					    mov al, vNo[edx]
+					    mov carno[esi],al
+						inc edx
+						inc esi
+						loop copy
+
+				 ;             ------------E N T E R -  D A T E - I N------------
+
+				        mov edx, offset date1       ;msg to write number
+						call WriteString
+
+						mov edx,offset din
+						mov ecx,sizeof din			;take Date in from user
+						call readstring
+
+						mov edx, offset din
+						call WriteString			;printing that date
+
+						;mov edx,offset vNo
+						;mov esi, offset carno
+
+						mov ecx,sizeof din			;In loop give sizeof vehical number
+
+						mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+						mul siz					;multiplying it with 11 (size of each) 33
+						mov cal,eax					;mov it in cal
+
+						call crlf
+						call writeint			;checking the value
+						call crlf
+
+						mov esi,eax				;give esi that size like 33
+						mov edx,0				;give edx the starting address of variable which stores bike's number
+
+						;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+						copy1:
+					    mov al, din[edx]
+					    mov adin[esi],al
+						inc edx
+						inc esi
+						loop copy1
+
+
+						inc occvacancy		;updated total occupied vacay
+
+					;	mov esi,11
+					;	mov al , carno[esi]
+					;	call writechar
+	
+						mov esi,0
+						mov ecx,33
+						co:
+					    mov al, carno[esi]
+					    call writechar
+						inc esi
+						loop co
+
+						mov esi,0
+						mov ecx,33
+						co1:
+					    mov al, adin[esi]
+					    call writechar
+						inc esi
+						loop co1
+
+						jmp exit1
+
+
+						Full:
+						mov edx, offset msg15			;in case of full vacancy
+						call WriteString
+						jmp exit1
+
+						exit1:
 						ret
 parkcar ENDP
 
 ; ********* P A R K I N G - V A N ********* 
-parkvan PROC												; Condition for parking van
-						mov edx, offset data5
+parkvan PROC			
+						CMP occvacancy, 3
+						jge Full                     ;If Vacany is Full
+
+;             ------------E N T E R -  B I K E ' S - N U M B E R------------
+
+						mov edx, offset data5       ;msg to write number
 						call WriteString
 
+						mov edx,offset vNo
+						mov ecx,sizeof vNo			;take vehical no from user
+						call readstring
+
+						mov edx, offset vNo
+						call WriteString			;printing that no
+
+						;mov edx,offset vNo
+						;mov esi, offset carno
+
+						mov ecx,sizeof vNo			;In loop give sizeof vehical number
+
+						mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+						mul siz					;multiplying it with 11 (size of each) 33
+						mov cal,eax					;mov it in cal
+
+						call crlf
+						call writeint			;checking the value
+						call crlf
+
+						mov esi,eax				;give esi that size like 33
+						mov edx,0				;give edx the starting address of variable which stores bike's number
+
+						;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+						copy:
+					    mov al, vNo[edx]
+					    mov carno[esi],al
+						inc edx
+						inc esi
+						loop copy
+
+				 ;             ------------E N T E R -  D A T E - I N------------
+
+				 mov edx, offset date1       ;msg to write number
+						call WriteString
+
+						mov edx,offset din
+						mov ecx,sizeof din			;take Date in from user
+						call readstring
+
+						mov edx, offset din
+						call WriteString			;printing that date
+
+						;mov edx,offset vNo
+						;mov esi, offset carno
+
+						mov ecx,sizeof din			;In loop give sizeof vehical number
+
+						mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+						mul siz					;multiplying it with 11 (size of each) 33
+						mov cal,eax					;mov it in cal
+
+						call crlf
+						call writeint			;checking the value
+						call crlf
+
+						mov esi,eax				;give esi that size like 33
+						mov edx,0				;give edx the starting address of variable which stores bike's number
+
+						;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+						copy1:
+					    mov al, din[edx]
+					    mov adin[esi],al
+						inc edx
+						inc esi
+						loop copy1
+
+
+						inc occvacancy		;updated total occupied vacay
+
+					;	mov esi,11
+					;	mov al , carno[esi]
+					;	call writechar
+	
+						mov esi,0
+						mov ecx,33
+						co:
+					    mov al, carno[esi]
+					    call writechar
+						inc esi
+						loop co
+
+						mov esi,0
+						mov ecx,33
+						co1:
+					    mov al, adin[esi]
+					    call writechar
+						inc esi
+						loop co1
+
+						jmp exit1
+
+
+						Full:
+						mov edx, offset msg15			;in case of full vacancy
+						call WriteString
+						jmp exit1
+
+						exit1:
+						
 						ret
 parkvan ENDP
+
+; ********* P A R K I N G - B I K E O U T ********* 
+bikeout PROC												; Condition for parking out bike
+					mov edx, offset data1
+						call WriteString
+					
+						ret
+bikeout ENDP
+
+; ********* P A R K I N G - C A R O U T ********* 
+carout PROC													; Condition for parking out car
+						mov edx, offset data3
+						call WriteString
+						
+
+						ret
+carout ENDP
+
+; ********* P A R K I N G - V A N O U T ********* 
+vanout PROC													; Condition for parking out van
+						mov edx, offset data5
+						call WriteString
+						
+
+						ret
+vanout ENDP
+
+
 
 
 
@@ -247,6 +671,36 @@ parkvan ENDP
 ;           ************************************ P R O C E D U R E S ******************************************
 ;           ***************************************************************************************************
 
+
+; ********* R E A D I N G - P A S S W O R D 1 ********* 
+
+
+pass1 PROC						    ;Procedure to read from file 1
+
+                                     ;File Handling
+
+mov edx,offset passfile             ;passing file's offset to open in edx  
+call openInputFile                  ;open input file  
+mov fhandler,eax                    ;storing file handler
+
+mov edx, offset tempuser			;reading user name
+mov ecx, 3                          ;giving size to read
+call readfromfile					
+
+;mov edx, offset tempuser
+;call writestring
+
+mov eax,fhandler					;moving file handler in eax
+mov edx, offset temppass			
+mov ecx, 6							;reading password
+call readfromfile
+
+;mov edx,offset temppass
+;call writestring
+
+;call closefile
+RET
+pass1 endp
 
 END main
 
