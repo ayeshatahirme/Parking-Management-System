@@ -30,6 +30,7 @@ data5 Byte 0dh,0ah,"Enter your van's number [XXX-00-X00]:  ",0
 data7 Byte 0dh,0ah,"--------------------- Thanks for coming! Have a nice day. --------------------  ",0
 header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
 callamount Byte 0dh,0ah,"Totalamount is:  ",0
+noMatch Byte 0dh,0ah,"Your car is not found ",0
 
 msg6 db "there is more space: ",0
 msg7 db "the total amount is: ",0
@@ -41,6 +42,7 @@ msg12 db "***Record deleted successfully***",0
 msg13 db "Wrong Password or username Enter Again",0
 msg14 db "Successfully Login ",0
 msg15 db "Sorry! Parking is Full ",0
+
 
 msg16 db "                ",0
 msg17 db "Vehical Numbers:",0
@@ -90,10 +92,15 @@ vNo byte 11 dup(0)
 din byte 11 dup(0)				;Variables to enter credentials
 dout byte 11 dup(0)
 
+compre byte 11 dup(0)     ;variable to store date to be matched
+
 siz dword 11   ;used to calculate next variable
 cal dword ?    ;calculate where is the next variable in array
 
-
+i dword 0       ; to store the loop incremntation
+flag dword 0    ;flag used in park out
+flag1 dword 0    ;flag used in park out
+temp dword ?     ;to store the loop ecx value in parkout 
 
 .code
 
@@ -662,11 +669,11 @@ viewRecords PROC
 						mov edx,offset msg17				;To print Number
 						call writestring
 
-						mov eax,occvacancy                 ;Trying to make value for ECX
-						mul siz
+					;	mov eax,occvacancy                 ;Trying to make value for ECX
+					;	mul siz
 
  						mov esi,0							
-						mov ecx, 33
+						mov ecx, lengthof carno
 
 						co:
 					    mov al, carno[esi]
@@ -708,9 +715,55 @@ viewRecords PROC
 
 ; ********* P A R K I N G - B I K E O U T ********* 
 bikeout PROC												; Condition for parking out bike
-					mov edx, offset data1
+					    mov edx, offset data1
 						call WriteString
-					
+
+	;             ------------E N T E R -  B I K E ' S - N U M B E R------------
+
+						mov edx,offset vNo
+						mov ecx,sizeof vNo					;input car's number
+						call readstring
+						
+
+						mov esi,0
+						;mov edx,0
+						mov ecx, 3
+
+						loop1:
+						mov edx,0
+						mov temp,ecx
+						mov ecx,siz
+						mov eax,esi
+						call writeint           
+						loop2:
+						mov al,carno[esi]
+						;call writechar
+						mov compre[edx],al
+						inc esi
+						inc edx
+						loop loop2
+								     																			;mov edx,offset vNo
+																												;call writestring
+																												;mov edx,offset compre
+																												;call writestring
+						INVOKE Str_compare, ADDR vNo, ADDR compre
+						je found
+
+						mov ecx,temp
+						loop loop1
+						jmp notFound
+						
+						found:
+						mov edx,offset data1
+						call writestring
+						jmp _exit
+
+						notFound:
+						mov edx,offset NoMatch
+						call writestring
+						jmp _exit
+
+						_exit:
 						ret
 bikeout ENDP
 
