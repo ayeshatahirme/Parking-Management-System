@@ -101,7 +101,14 @@ i dword 0       ; to store the loop incremntation
 flag dword 0    ;flag used in park out
 flag1 dword 0    ;flag used in park out
 temp dword ?     ;to store the loop ecx value in parkout 
+ 
+pr1 byte 2 dup(0)   ; to store date in  to convert it into integer
+pr2 byte 2 dup(0)   ; to store date out to convert it into integer
+pr3 byte 2 dup(0)
 
+value1 dword 0		; to store converted integer
+value2 dword 0
+a dword 10          ;helper in order to convert o integer
 .code
 
 main proc
@@ -725,15 +732,16 @@ bikeout PROC												; Condition for parking out bike
 						call readstring
 						
 
-						mov esi,0
+						mov esi,0							;giving esi a starting address which is 0
 						;mov edx,0
-						mov ecx, 3
+						mov ecx, 3							;loop for all values
 
 						loop1:
-						mov edx,0
-						mov temp,ecx
-						mov ecx,siz
-						mov eax,esi
+						mov edx,0							;giving edx a starting 0 address
+						mov temp,ecx						;storing ecx for inner loop
+						mov ecx,siz							;inner loop for 11 times which is size
+						mov eax,esi							;storing esi
+						mov cal,eax							;storing result for future use in entering the date out
 						call writeint           
 						loop2:
 						mov al,carno[esi]
@@ -746,16 +754,82 @@ bikeout PROC												; Condition for parking out bike
 																												;call writestring
 																												;mov edx,offset compre
 																												;call writestring
-						INVOKE Str_compare, ADDR vNo, ADDR compre
-						je found
-
-						mov ecx,temp
-						loop loop1
-						jmp notFound
+						 ;             ------------C O M P A R E -  B O T H - N U M B E R S------------
 						
+						INVOKE Str_compare, ADDR vNo, ADDR compre   ;comparing both strings
+						je found									;jmp if found
+
+						mov ecx,temp								;restoring ecx
+						loop loop1
+						jmp notFound								;incase if not found
+						
+						 ;             ------------E N T E R -  D A T E - O U T ------------
 						found:
-						mov edx,offset data1
+						mov edx,offset date2
 						call writestring
+
+						mov edx,offset dout
+						mov ecx,sizeof dout				;taking date out from user
+						call readString
+
+						 ;             ------------S T O R I N G - I N - D A T E - O U T - A R R A Y ------------
+
+						mov esi,cal						;mov starting value in esi
+						mov ecx,siz						;giving esi size 11
+						mov edx,0						;giving edx starting address of variable
+
+						copy1:							;loop to store date out in main array
+					    mov al, dout[edx]				
+					    mov adout[esi],al
+						inc edx
+						inc esi
+						loop copy1
+
+				 ;             ------------F I N D I N G - P R I C E ------------
+				        mov esi,cal
+						mov edx, offset pr1
+						mov al, adin[esi]				
+						mov [edx],al						;storing datein day in a variable
+						mov al, adin[esi+1]				
+						mov [edx+1],al
+
+					    mov esi,cal
+						mov edx, offset pr2
+						mov al, adout[esi]				    ;storing dateout day in a variable
+						mov [edx],al
+						mov al, adout[esi+1]				
+						mov [edx+1],al
+
+						;             ------------D A T E - 1 - T O - I N T E G E R ------------
+
+						mov eax,0
+                        mov edx, offset pr1
+						mov al,[edx+1]
+						sub al,48						;val = 0                                                                          
+						      							;val = val + ('3' - 48) * 10power0       [val now is 3]
+						add eax,value1					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+						mov value1,eax
+						mov eax,0
+						mov al,[edx]
+						sub al,48
+						mul a
+						add eax,value1
+						mov value1,eax
+
+						;             ------------D A T E - 2 - T O - I N T E G E R ------------
+
+						mov eax,0
+                        mov edx, offset pr2
+						mov al,[edx+1]					;val = 0
+						sub al,48						;val = val + ('3' - 48) * 10power0       [val now is 3]                                                                       											
+						add eax,value2					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+						mov value2,eax
+						mov eax,0
+						mov al,[edx]
+						sub al,48
+						mul a
+						add eax,value2
+						mov value2,eax
 						jmp _exit
 
 						notFound:
