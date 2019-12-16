@@ -4,7 +4,7 @@ INCLUDE Irvine32.inc
 
 .data
 opt byte "            *************************Welcome To Parking Management System************************************",0
-opt1 byte "           ********************************Login as Admininstrator*********************************************",0
+opt1 byte "           ********************************Login as Admininstrator*******************************************",0
 opt2 byte "Enter UserName: ",0
 opt3 byte "Enter Password: ",0
 
@@ -29,7 +29,7 @@ data3 Byte 0dh,0ah,"Enter your car's number [XXX-00-X00]:  ",0
 data5 Byte 0dh,0ah,"Enter your van's number [XXX-00-X00]:  ",0
 data7 Byte 0dh,0ah,"--------------------- Thanks for coming! Have a nice day. --------------------  ",0
 header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
-callamount Byte 0dh,0ah,"Totalamount is:  ",0
+callamount Byte 0dh,0ah,"Total collected amount is:  $",0
 noMatch Byte 0dh,0ah,"Your car is not found ",0
 
 msg6 db "there is more space: ",0
@@ -44,18 +44,20 @@ msg14 db "Successfully Login ",0
 msg15 db "Sorry! Parking is Full ",0
 
 
+
 msg16 db "                ",0
 msg17 db "Vehical Numbers:",0
 msg18 db "Date In:        ",0
 msg19 db "Date Out:       ",0
+msg20 Byte 0dh,0ah,"please Pay $",0
 
 tvacy dword 50
 tamount dword 0
 ;totalcount dword  0
-bikeamount dword 100
-caramount dword 150
-vanamount dword 200
-totalamount dword ?
+bikeamount dword 10
+caramount dword 15
+vanamount dword 20
+totalamount dword 0
 
 occvacancy dword 0
 loopcontrolvar dword 0
@@ -82,9 +84,9 @@ temppass byte 20 dup (?)
 
 
 
-carno byte 55 dup(0)
-adin byte 55 dup(0)                 ;Arrays to store credentials
-adout byte 55 dup(0)
+carno byte 550 dup(0)
+adin byte 550 dup(0)                 ;Arrays to store credentials
+adout byte 550 dup(0)
 
 
 
@@ -112,7 +114,8 @@ a dword 10          ;helper in order to convert o integer
 .code
 
 main proc
-
+mov eax,yellow
+call setTextColor
 call crlf
 mov edx,offset opt                         
 call writestring                            ;------To Write 
@@ -125,13 +128,22 @@ call writestring                            ;------To Write
 call crlf                                   ;      Login msg-----
 call crlf
 
+mov eax,white
+call setTextColor
+
 jmp goout									;in order to avoid the running of wrong tag 
 
 wrong:                                      ;in case if password is wrong
 
+mov eax,red
+call setTextColor
 mov edx, offset msg13
 call writestring							;to show the msg of wrong input
 call crlf
+
+mov eax,white
+call setTextColor
+
 jmp goout 
 
 goout:
@@ -177,12 +189,17 @@ jmp T1											 ;jmp if password is right
 
 
 T1:		
+mov eax,green
+call setTextColor
 
 mov edx, offset msg14
 call writestring
 
+mov eax,white
+call setTextColor
+
 ; *********************** MAIN PAGE ************************
-	
+
 	mainpage:										; Main page of system
 
 			mov edx, offset msg1						; showing parkin option
@@ -312,6 +329,17 @@ call writestring
 
 ; ***************************** EXIT PROGRAM ************************************
 			_exit:									; Condition for exiting system
+
+
+
+
+
+			    mov edx,offset callamount
+			    call writestring
+				mov eax,totalamount					;to show total amount
+				call writeint
+				call crlf
+
 				mov edx, offset data7
 				call WriteString
 				call crlf
@@ -327,7 +355,7 @@ call writestring
  ; ********* P A R K I N G - B I K E ********* 
 parkbike PROC												; Condition for parking bike
 
-						CMP occvacancy, 3
+						CMP occvacancy, 50
 						jge Full                     ;If Vacany is Full
 
 ;             ------------E N T E R -  B I K E ' S - N U M B E R------------
@@ -338,12 +366,6 @@ parkbike PROC												; Condition for parking bike
 						mov edx,offset vNo
 						mov ecx,sizeof vNo			;take vehical no from user
 						call readstring
-
-						mov edx, offset vNo
-						call WriteString			;printing that no
-
-						;mov edx,offset vNo
-						;mov esi, offset carno
 
 						mov ecx,sizeof vNo			;In loop give sizeof vehical number
 
@@ -376,12 +398,6 @@ parkbike PROC												; Condition for parking bike
 						mov ecx,sizeof din			;take Date in from user
 						call readstring
 
-						mov edx, offset din
-						call WriteString			;printing that date
-
-						;mov edx,offset vNo
-						;mov esi, offset carno
-
 						mov ecx,sizeof din			;In loop give sizeof vehical number
 
 						mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
@@ -404,29 +420,7 @@ parkbike PROC												; Condition for parking bike
 						inc esi
 						loop copy1
 
-
 						inc occvacancy		;updated total occupied vacay
-
-					;	mov esi,11
-					;	mov al , carno[esi]
-					;	call writechar
-	
-						mov esi,0
-						mov ecx,33
-						co:
-					    mov al, carno[esi]
-					    call writechar
-						inc esi
-						loop co
-
-						mov esi,0
-						mov ecx,33
-						co1:
-					    mov al, adin[esi]
-					    call writechar
-						inc esi
-						loop co1
-
 						jmp exit1
 
 
@@ -443,7 +437,7 @@ parkbike ENDP
 ; ********* P A R K I N G - C A R ********* 
 parkcar PROC												; Condition for parking car
 				
-						CMP occvacancy, 3
+						CMP occvacancy, 50
 						jge Full                     ;If Vacany is Full
 
 ;             ------------E N T E R -  B I K E ' S - N U M B E R------------
@@ -454,12 +448,6 @@ parkcar PROC												; Condition for parking car
 						mov edx,offset vNo
 						mov ecx,sizeof vNo			;take vehical no from user
 						call readstring
-
-						mov edx, offset vNo
-						call WriteString			;printing that no
-
-						;mov edx,offset vNo
-						;mov esi, offset carno
 
 						mov ecx,sizeof vNo			;In loop give sizeof vehical number
 
@@ -492,12 +480,6 @@ parkcar PROC												; Condition for parking car
 						mov ecx,sizeof din			;take Date in from user
 						call readstring
 
-						mov edx, offset din
-						call WriteString			;printing that date
-
-						;mov edx,offset vNo
-						;mov esi, offset carno
-
 						mov ecx,sizeof din			;In loop give sizeof vehical number
 
 						mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
@@ -522,27 +504,6 @@ parkcar PROC												; Condition for parking car
 
 
 						inc occvacancy		;updated total occupied vacay
-
-					;	mov esi,11
-					;	mov al , carno[esi]
-					;	call writechar
-	
-						mov esi,0
-						mov ecx,33
-						co:
-					    mov al, carno[esi]
-					    call writechar
-						inc esi
-						loop co
-
-						mov esi,0
-						mov ecx,33
-						co1:
-					    mov al, adin[esi]
-					    call writechar
-						inc esi
-						loop co1
-
 						jmp exit1
 
 
@@ -557,7 +518,7 @@ parkcar ENDP
 
 ; ********* P A R K I N G - V A N ********* 
 parkvan PROC			
-						CMP occvacancy, 3
+						CMP occvacancy, 50
 						jge Full                     ;If Vacany is Full
 
 ;             ------------E N T E R -  B I K E ' S - N U M B E R------------
@@ -569,11 +530,6 @@ parkvan PROC
 						mov ecx,sizeof vNo			;take vehical no from user
 						call readstring
 
-						mov edx, offset vNo
-						call WriteString			;printing that no
-
-						;mov edx,offset vNo
-						;mov esi, offset carno
 
 						mov ecx,sizeof vNo			;In loop give sizeof vehical number
 
@@ -599,18 +555,12 @@ parkvan PROC
 
 				 ;             ------------E N T E R -  D A T E - I N------------
 
-				 mov edx, offset date1       ;msg to write number
+				        mov edx, offset date1       ;msg to write number
 						call WriteString
 
 						mov edx,offset din
 						mov ecx,sizeof din			;take Date in from user
 						call readstring
-
-						mov edx, offset din
-						call WriteString			;printing that date
-
-						;mov edx,offset vNo
-						;mov esi, offset carno
 
 						mov ecx,sizeof din			;In loop give sizeof vehical number
 
@@ -636,26 +586,6 @@ parkvan PROC
 
 
 						inc occvacancy		;updated total occupied vacay
-
-					;	mov esi,11
-					;	mov al , carno[esi]
-					;	call writechar
-	
-						mov esi,0
-						mov ecx,33
-						co:
-					    mov al, carno[esi]
-					    call writechar
-						inc esi
-						loop co
-
-						mov esi,0
-						mov ecx,33
-						co1:
-					    mov al, adin[esi]
-					    call writechar
-						inc esi
-						loop co1
 
 						jmp exit1
 
@@ -694,7 +624,7 @@ viewRecords PROC
 						call writestring
 
 						mov esi,0
-						mov ecx,33
+						mov ecx,550
 
 						co1:
 					    mov al, adin[esi]
@@ -708,7 +638,7 @@ viewRecords PROC
 						call writestring
 
 						mov esi,0
-						mov ecx,33
+						mov ecx,550
 
 						co2:
 					    mov al, adout[esi]
@@ -734,7 +664,7 @@ bikeout PROC												; Condition for parking out bike
 
 						mov esi,0							;giving esi a starting address which is 0
 						;mov edx,0
-						mov ecx, 3							;loop for all values
+						mov ecx, 50							;loop for all values
 
 						loop1:
 						mov edx,0							;giving edx a starting 0 address
@@ -742,7 +672,143 @@ bikeout PROC												; Condition for parking out bike
 						mov ecx,siz							;inner loop for 11 times which is size
 						mov eax,esi							;storing esi
 						mov cal,eax							;storing result for future use in entering the date out
-						call writeint           
+	           
+						loop2:
+						mov al,carno[esi]
+						;call writechar
+						mov compre[edx],al
+						inc esi
+						inc edx
+						loop loop2
+						 ;             ------------C O M P A R E -  B O T H - N U M B E R S------------
+						
+						INVOKE Str_compare, ADDR vNo, ADDR compre   ;comparing both strings
+						je found									;jmp if found
+
+						mov ecx,temp								;restoring ecx
+						loop loop1
+						jmp notFound								;incase if not found
+						
+						 ;             ------------E N T E R -  D A T E - O U T ------------
+						found:
+						mov edx,offset date2
+						call writestring
+
+						mov edx,offset dout
+						mov ecx,sizeof dout				;taking date out from user
+						call readString
+
+						 ;             ------------S T O R I N G - I N - D A T E - O U T - A R R A Y ------------
+
+						mov esi,cal						;mov starting value in esi
+						mov ecx,siz						;giving esi size 11
+						mov edx,0						;giving edx starting address of variable
+
+						copy1:							;loop to store date out in main array
+					    mov al, dout[edx]				
+					    mov adout[esi],al
+						inc edx
+						inc esi
+						loop copy1
+
+				 ;             ------------F I N D I N G - P R I C E ------------
+				        mov esi,cal
+						mov edx, offset pr1
+						mov al, adin[esi]				
+						mov [edx],al						;storing datein day in a variable
+						mov al, adin[esi+1]				
+						mov [edx+1],al
+
+					    mov esi,cal
+						mov edx, offset pr2
+						mov al, adout[esi]				    ;storing dateout day in a variable
+						mov [edx],al
+						mov al, adout[esi+1]				
+						mov [edx+1],al
+
+						;             ------------D A T E - 1 - T O - I N T E G E R ------------
+
+						mov eax,0
+						mov value1,eax
+                        mov edx, offset pr1
+						mov al,[edx+1]
+						sub al,48						;val = 0                                                                          
+						      							;val = val + ('3' - 48) * 10power0       [val now is 3]
+						add eax,value1					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+						mov value1,eax
+						mov eax,0
+						mov al,[edx]
+						sub al,48
+						mul a
+						add eax,value1
+						mov value1,eax
+
+						;             ------------D A T E - 2 - T O - I N T E G E R ------------
+
+						mov eax,0
+						mov value2,eax
+                        mov edx, offset pr2
+						mov al,[edx+1]					;val = 0
+						sub al,48						;val = val + ('3' - 48) * 10power0       [val now is 3]                                                                       											
+						add eax,value2					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+						mov value2,eax
+						mov eax,0
+						mov al,[edx]
+						sub al,48
+						mul a
+						add eax,value2
+						mov value2,eax
+
+							;             ------------S H O W I N G - P R I C E------------
+						mov eax,value2
+						sub eax,value1					;calculating amount to pay
+						mul bikeamount
+
+						mov edx,offset msg20
+						call writestring				;show that pay this amount
+						call writeint
+
+						add eax,totalamount				;total amount calculator
+						mov totalamount,eax
+
+
+
+
+						dec occvacancy
+						jmp _exit
+					
+						notFound:
+						mov edx,offset NoMatch
+						call writestring
+						jmp _exit
+
+						_exit:
+						ret
+bikeout ENDP
+
+; ********* P A R K I N G - C A R O U T ********* 
+carout PROC													; Condition for parking out car
+						mov edx, offset data3
+						call WriteString
+
+	;             ------------E N T E R -  C A R ' S - N U M B E R------------
+
+						mov edx,offset vNo
+						mov ecx,sizeof vNo					;input car's number
+						call readstring
+						
+
+						mov esi,0							;giving esi a starting address which is 0
+						;mov edx,0
+						mov ecx, 50							;loop for all values
+
+						loop1:
+						mov edx,0							;giving edx a starting 0 address
+						mov temp,ecx						;storing ecx for inner loop
+						mov ecx,siz							;inner loop for 11 times which is size
+						mov eax,esi							;storing esi
+						mov cal,eax							;storing result for future use in entering the date out
+	           
 						loop2:
 						mov al,carno[esi]
 						;call writechar
@@ -803,6 +869,7 @@ bikeout PROC												; Condition for parking out bike
 						;             ------------D A T E - 1 - T O - I N T E G E R ------------
 
 						mov eax,0
+						mov value1,eax
                         mov edx, offset pr1
 						mov al,[edx+1]
 						sub al,48						;val = 0                                                                          
@@ -819,6 +886,7 @@ bikeout PROC												; Condition for parking out bike
 						;             ------------D A T E - 2 - T O - I N T E G E R ------------
 
 						mov eax,0
+						mov value2,eax
                         mov edx, offset pr2
 						mov al,[edx+1]					;val = 0
 						sub al,48						;val = val + ('3' - 48) * 10power0       [val now is 3]                                                                       											
@@ -830,22 +898,27 @@ bikeout PROC												; Condition for parking out bike
 						mul a
 						add eax,value2
 						mov value2,eax
-						jmp _exit
 
+							;             ------------S H O W I N G - P R I C E------------
+						mov eax,value2
+						sub eax,value1					;calculating amount to pay
+						mul caramount
+
+						mov edx,offset msg20
+						call writestring				;show that pay this amount
+						call writeint
+
+						add eax,totalamount				;total amount calculator
+						mov totalamount,eax
+						dec occvacancy
+						jmp _exit
+					
 						notFound:
 						mov edx,offset NoMatch
 						call writestring
 						jmp _exit
 
 						_exit:
-						ret
-bikeout ENDP
-
-; ********* P A R K I N G - C A R O U T ********* 
-carout PROC													; Condition for parking out car
-						mov edx, offset data3
-						call WriteString
-						
 
 						ret
 carout ENDP
@@ -854,7 +927,135 @@ carout ENDP
 vanout PROC													; Condition for parking out van
 						mov edx, offset data5
 						call WriteString
+
+	;             ------------E N T E R -  V A N ' S - N U M B E R------------
+
+						mov edx,offset vNo
+						mov ecx,sizeof vNo					;input car's number
+						call readstring
 						
+
+						mov esi,0							;giving esi a starting address which is 0
+						;mov edx,0
+						mov ecx, 50 						;loop for all values
+
+						loop1:
+						mov edx,0							;giving edx a starting 0 address
+						mov temp,ecx						;storing ecx for inner loop
+						mov ecx,siz							;inner loop for 11 times which is size
+						mov eax,esi							;storing esi
+						mov cal,eax							;storing result for future use in entering the date out          
+						loop2:
+						mov al,carno[esi]
+						;call writechar
+						mov compre[edx],al
+						inc esi
+						inc edx
+						loop loop2
+								     																			;mov edx,offset vNo
+																												;call writestring
+																												;mov edx,offset compre
+																												;call writestring
+						 ;             ------------C O M P A R E -  B O T H - N U M B E R S------------
+						
+						INVOKE Str_compare, ADDR vNo, ADDR compre   ;comparing both strings
+						je found									;jmp if found
+
+						mov ecx,temp								;restoring ecx
+						loop loop1
+						jmp notFound								;incase if not found
+						
+						 ;             ------------E N T E R -  D A T E - O U T ------------
+						found:
+						mov edx,offset date2
+						call writestring
+
+						mov edx,offset dout
+						mov ecx,sizeof dout				;taking date out from user
+						call readString
+
+						 ;             ------------S T O R I N G - I N - D A T E - O U T - A R R A Y ------------
+
+						mov esi,cal						;mov starting value in esi
+						mov ecx,siz						;giving esi size 11
+						mov edx,0						;giving edx starting address of variable
+
+						copy1:							;loop to store date out in main array
+					    mov al, dout[edx]				
+					    mov adout[esi],al
+						inc edx
+						inc esi
+						loop copy1
+
+				 ;             ------------F I N D I N G - P R I C E ------------
+				        mov esi,cal
+						mov edx, offset pr1
+						mov al, adin[esi]				
+						mov [edx],al						;storing datein day in a variable
+						mov al, adin[esi+1]				
+						mov [edx+1],al
+
+					    mov esi,cal
+						mov edx, offset pr2
+						mov al, adout[esi]				    ;storing dateout day in a variable
+						mov [edx],al
+						mov al, adout[esi+1]				
+						mov [edx+1],al
+
+						;             ------------D A T E - 1 - T O - I N T E G E R ------------
+
+						mov eax,0
+						mov value1,eax
+                        mov edx, offset pr1
+						mov al,[edx+1]
+						sub al,48						;val = 0                                                                          
+						      							;val = val + ('3' - 48) * 10power0       [val now is 3]
+						add eax,value1					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+						mov value1,eax
+						mov eax,0
+						mov al,[edx]
+						sub al,48
+						mul a
+						add eax,value1
+						mov value1,eax
+
+						;             ------------D A T E - 2 - T O - I N T E G E R ------------
+
+						mov eax,0
+						mov value2,eax
+                        mov edx, offset pr2
+						mov al,[edx+1]					;val = 0
+						sub al,48						;val = val + ('3' - 48) * 10power0       [val now is 3]                                                                       											
+						add eax,value2					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+						mov value2,eax
+						mov eax,0
+						mov al,[edx]
+						sub al,48
+						mul a
+						add eax,value2
+						mov value2,eax
+
+							;             ------------S H O W I N G - P R I C E------------
+						mov eax,value2
+						sub eax,value1					;calculating amount to pay
+						mul vanamount
+
+						mov edx,offset msg20
+						call writestring				;show that pay this amount
+						call writeint
+
+						add eax,totalamount				;total amount calculator
+						mov totalamount,eax
+						dec occvacancy
+						jmp _exit
+					
+						notFound:
+						mov edx,offset NoMatch
+						call writestring
+						jmp _exit
+
+					
+						_exit:
 
 						ret
 vanout ENDP
