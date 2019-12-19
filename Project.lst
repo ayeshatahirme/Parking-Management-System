@@ -1,4 +1,4 @@
-Microsoft (R) Macro Assembler Version 14.16.27032.1	    11/22/19 15:39:46
+Microsoft (R) Macro Assembler Version 14.16.27027.1	    12/17/19 12:26:45
 AddTwo.asm						     Page 1 - 1
 
 
@@ -24,131 +24,219 @@ AddTwo.asm						     Page 1 - 1
 			      C 
 
  00000000			.data
- 00000000 2A 2A 2A 2A 2A	op byte "*****************************Parking Management System*****************************",0
+ 00000000 20 20 20 20 20	opt byte "            *************************Welcome To Parking Management System************************************",0
+	   20 20 20 20 20
+	   20 20 2A 2A 2A
 	   2A 2A 2A 2A 2A
 	   2A 2A 2A 2A 2A
 	   2A 2A 2A 2A 2A
 	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 50
-	   61 72 6B 69 6E
-	   67 20 4D 61 6E
-	   61 67 65 6D 65
-	   6E 74 20 53 79
-	   73 74 65 6D 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 00
- 00000054 2A 2A 2A 2A 2A	op1 byte "*****************************Login as Admininstrator*****************************",0
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 4C
-	   6F 67 69 6E 20
-	   61 73 20 41 64
-	   6D 69 6E 69 6E
-	   73 74 72 61 74
-	   6F 72 2A 2A 2A
+	   2A 2A 57 65 6C
+	   63 6F 6D 65 20
+	   54 6F 20 50 61
+	   72 6B 69 6E 67
+	   20 4D 61 6E 61
+	   67 65 6D 65 6E
+	   74 20 53 79 73
+	   74 65 6D 2A 2A
 	   2A 2A 2A 2A 2A
 	   2A 2A 2A 2A 2A
 	   2A 2A 2A 2A 2A
 	   2A 2A 2A 2A 2A
 	   2A 2A 2A 2A 2A
-	   2A 00
- 000000A6 45 6E 74 65 72	op2 byte "Enter UserName: ",0
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 00
+ 0000006E 20 20 20 20 20	opt1 byte "           ********************************Login as Admininstrator*******************************************",0
+	   20 20 20 20 20
+	   20 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 4C 6F
+	   67 69 6E 20 61
+	   73 20 41 64 6D
+	   69 6E 69 6E 73
+	   74 72 61 74 6F
+	   72 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 2A
+	   2A 2A 2A 2A 00
+ 000000DC 45 6E 74 65 72	opt2 byte "Enter UserName: ",0
 	   20 55 73 65 72
 	   4E 61 6D 65 3A
 	   20 00
- 000000B7 45 6E 74 65 72	op3 byte "Enter Password: ",0
+ 000000ED 45 6E 74 65 72	opt3 byte "Enter Password: ",0
 	   20 50 61 73 73
 	   77 6F 72 64 3A
 	   20 00
 
- 000000C8 50 72 65 73 73	op4 byte "Press 1 for Parking In ",0
-	   20 31 20 66 6F
-	   72 20 50 61 72
-	   6B 69 6E 67 20
-	   49 6E 20 00
- 000000E0 50 72 65 73 73	op5 byte "Press 2 for Parking Out ",0
-	   20 32 20 66 6F
-	   72 20 50 61 72
-	   6B 69 6E 67 20
-	   4F 75 74 20 00
+ 000000FE 0D 0A 31 2E 20	msg1 Byte 0dh,0ah,"1. Park in  ",0 
+	   50 61 72 6B 20
+	   69 6E 20 20 00
+ 0000010D 0D 0A 32 2E 20	msg2 Byte 0dh,0ah,"2. Park out  ",0
+	   50 61 72 6B 20
+	   6F 75 74 20 20
+	   00
+ 0000011D 0D 0A 33 2E 20	msg3 Byte 0dh,0ah,"3. Logout  ",0
+	   4C 6F 67 6F 75
+	   74 20 20 00
+ 0000012B 0D 0A 34 2E 20	msg33 Byte 0dh,0ah,"4. View Records  ",0
+	   56 69 65 77 20
+	   52 65 63 6F 72
+	   64 73 20 20 00
+ 0000013F 0D 0A 2D 2D 2D	msg4 Byte 0dh,0ah,"---------- YOUR VEHICLE IS PARKED IN ----------",0
+	   2D 2D 2D 2D 2D
+	   2D 2D 20 59 4F
+	   55 52 20 56 45
+	   48 49 43 4C 45
+	   20 49 53 20 50
+	   41 52 4B 45 44
+	   20 49 4E 20 2D
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 00
+ 00000171 0D 0A 2D 2D 2D	msg5 Byte 0dh,0ah,"---------- YOUR VEHICLE IS PARKED OUT ----------",0
+	   2D 2D 2D 2D 2D
+	   2D 2D 20 59 4F
+	   55 52 20 56 45
+	   48 49 43 4C 45
+	   20 49 53 20 50
+	   41 52 4B 45 44
+	   20 4F 55 54 20
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   00
+ 000001A4 0D 0A 2D 3E 20	op Byte 0dh,0ah,"-> Menu:  ",0
+	   4D 65 6E 75 3A
+	   20 20 00
+ 000001B1 0D 0A 31 2E 20	op1 Byte 0dh,0ah,"1. Motorbike  ",0
+	   4D 6F 74 6F 72
+	   62 69 6B 65 20
+	   20 00
+ 000001C2 0D 0A 32 2E 20	op2 Byte 0dh,0ah,"2. Car  ",0
+	   43 61 72 20 20
+	   00
+ 000001CD 0D 0A 33 2E 20	op3 Byte 0dh,0ah,"3. Van  ",0
+	   56 61 6E 20 20
+	   00
+ 000001D8 0D 0A 34 2E 20	op4 Byte 0dh,0ah,"4. Back  ",0
+	   42 61 63 6B 20
+	   20 00
+ 000001E4 0D 0A 35 2E 20	op5 Byte 0dh,0ah,"5. Exit  ",0
+	   45 78 69 74 20
+	   20 00
+ 000001F0 0D 0A 45 6E 74	data1 Byte 0dh,0ah,"Enter your bike's number in Format [XXX-00-X00]:  ",0
+	   65 72 20 79 6F
+	   75 72 20 62 69
+	   6B 65 27 73 20
+	   6E 75 6D 62 65
+	   72 20 69 6E 20
+	   46 6F 72 6D 61
+	   74 20 5B 58 58
+	   58 2D 30 30 2D
+	   58 30 30 5D 3A
+	   20 20 00
+ 00000225 0D 0A 46 69 6C	date0 Byte 0dh,0ah,"Fill out following entry date details:  ",0
+	   6C 20 6F 75 74
+	   20 66 6F 6C 6C
+	   6F 77 69 6E 67
+	   20 65 6E 74 72
+	   79 20 64 61 74
+	   65 20 64 65 74
+	   61 69 6C 73 3A
+	   20 20 00
+ 00000250 0D 0A 45 6E 74	date1 Byte 0dh,0ah,"Enter DateIn in format [19-03-2019]: ",0
+	   65 72 20 44 61
+	   74 65 49 6E 20
+	   69 6E 20 66 6F
+	   72 6D 61 74 20
+	   5B 31 39 2D 30
+	   33 2D 32 30 31
+	   39 5D 3A 20 00
+ 00000278 0D 0A 45 6E 74	date2 Byte 0dh,0ah,"Enter DateOut in format [19-03-2019]: ",0
+	   65 72 20 44 61
+	   74 65 4F 75 74
+	   20 69 6E 20 66
+	   6F 72 6D 61 74
+	   20 5B 31 39 2D
+	   30 33 2D 32 30
+	   31 39 5D 3A 20
+	   00
 
- 000000F9 2A 2A 2A 2A 2A	op6 byte '*****************MENU*********************$'
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 4D 45 4E
-	   55 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 2A 2A 2A
-	   2A 2A 24
- 00000124 50 72 65 73 73	op7 byte "Press 1 for rikshw",0
-	   20 31 20 66 6F
-	   72 20 72 69 6B
-	   73 68 77 00
- 00000137 45 6E 74 65 72	opt7 byte "Enter vehical No.",0
+ 000002A1 0D 0A 45 6E 74	data3 Byte 0dh,0ah,"Enter your car's number [XXX-00-X00]:  ",0
+	   65 72 20 79 6F
+	   75 72 20 63 61
+	   72 27 73 20 6E
+	   75 6D 62 65 72
+	   20 5B 58 58 58
+	   2D 30 30 2D 58
+	   30 30 5D 3A 20
+	   20 00
+ 000002CB 0D 0A 45 6E 74	data5 Byte 0dh,0ah,"Enter your van's number [XXX-00-X00]:  ",0
+	   65 72 20 79 6F
+	   75 72 20 76 61
+	   6E 27 73 20 6E
+	   75 6D 62 65 72
+	   20 5B 58 58 58
+	   2D 30 30 2D 58
+	   30 30 5D 3A 20
+	   20 00
+ 000002F5 0D 0A 2D 2D 2D	data7 Byte 0dh,0ah,"--------------------- Thanks for coming! Have a nice day. --------------------  ",0
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 20 54
+	   68 61 6E 6B 73
+	   20 66 6F 72 20
+	   63 6F 6D 69 6E
+	   67 21 20 48 61
+	   76 65 20 61 20
+	   6E 69 63 65 20
+	   64 61 79 2E 20
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   20 20 00
+ 00000348 0D 0A 2D 3E 20	header2 Byte 0dh,0ah,"-> Which vehicle you want to park out:  ",0
+	   57 68 69 63 68
 	   20 76 65 68 69
-	   63 61 6C 20 4E
-	   6F 2E 00
- 00000149 45 6E 74 65 72	opt8 byte "Enter date in.",0
-	   20 64 61 74 65
-	   20 69 6E 2E 00
- 00000158 45 6E 74 65 72	opt9 byte "Enter date out",0
-	   20 64 61 74 65
-	   20 6F 75 74 00
-				;op7 byte "Press 1 for rikshw",0
- 00000167 50 72 65 73 73	op8 byte "Press 2 for cars",0
-	   20 32 20 66 6F
+	   63 6C 65 20 79
+	   6F 75 20 77 61
+	   6E 74 20 74 6F
+	   20 70 61 72 6B
+	   20 6F 75 74 3A
+	   20 20 00
+ 00000373 0D 0A 54 6F 74	callamount Byte 0dh,0ah,"Total collected amount is:  $",0
+	   61 6C 20 63 6F
+	   6C 6C 65 63 74
+	   65 64 20 61 6D
+	   6F 75 6E 74 20
+	   69 73 3A 20 20
+	   24 00
+ 00000393 0D 0A 59 6F 75	noMatch Byte 0dh,0ah,"Your car is not found ",0
 	   72 20 63 61 72
-	   73 00
- 00000178 50 72 65 73 73	op9 byte "Press 3 for bus",0
-	   20 33 20 66 6F
-	   72 20 62 75 73
-	   00
- 00000188 50 72 65 73 73	op10 byte "Press 4 to show the record",0
-	   20 34 20 74 6F
-	   20 73 68 6F 77
-	   20 74 68 65 20
-	   72 65 63 6F 72
-	   64 00
- 000001A3 50 72 65 73 73	op11 byte "Press 5 to delete the record",0
-	   20 35 20 74 6F
-	   20 64 65 6C 65
-	   74 65 20 74 68
-	   65 20 72 65 63
-	   6F 72 64 00
- 000001C0 50 72 65 73 73	op12 byte "Press 6 to exit",0
-	   20 36 20 74 6F
-	   20 65 78 69 74
-	   00
- 000001D0 50 61 72 6B 69	msg1 db "Parking Is Full.",0
-	   6E 67 20 49 73
-	   20 46 75 6C 6C
-	   2E 00
- 000001E1 57 72 6F 6E 67	msg2 db "Wrong input.",0
-	   20 69 6E 70 75
-	   74 2E 00
- 000001EE 63 61 72 2E 00	msg3 db "car.",0
- 000001F3 62 75 73 2E 20	msg4 db "bus. ",0
-	   00
- 000001F9 72 65 63 6F 72	msg5 db "record",0
-	   64 00
- 00000200 74 68 65 72 65	msg6 db "there is more space: ",0
+	   20 69 73 20 6E
+	   6F 74 20 66 6F
+	   75 6E 64 20 00
+
+ 000003AC 74 68 65 72 65	msg6 db "there is more space: ",0
 	   20 69 73 20 6D
 	   6F 72 65 20 73
 	   70 61 63 65 3A
 	   20 00
- 00000216 74 68 65 20 74	msg7 db "the total amount is: ",0
+ 000003C2 74 68 65 20 74	msg7 db "the total amount is: ",0
 	   6F 74 61 6C 20
 	   61 6D 6F 75 6E
 	   74 20 69 73 3A
 	   20 00
- 0000022C 74 68 65 20 74	msg8 db "the total numbers of vehicles parked: ",0
+ 000003D8 74 68 65 20 74	msg8 db "the total numbers of vehicles parked: ",0
 	   6F 74 61 6C 20
 	   6E 75 6D 62 65
 	   72 73 20 6F 66
@@ -156,85 +244,1147 @@ AddTwo.asm						     Page 1 - 1
 	   63 6C 65 73 20
 	   70 61 72 6B 65
 	   64 3A 20 00
- 00000253 74 68 65 20 74	msg9 db "the total number of rikshws parked: ",0
+ 000003FF 74 68 65 20 74	msg9 db "the total number of bikes parked: ",0
 	   6F 74 61 6C 20
 	   6E 75 6D 62 65
 	   72 20 6F 66 20
-	   72 69 6B 73 68
-	   77 73 20 70 61
-	   72 6B 65 64 3A
-	   20 00
- 00000278 74 68 65 20 74	msg10 db "the total number of cars parked: ",0
+	   62 69 6B 65 73
+	   20 70 61 72 6B
+	   65 64 3A 20 00
+ 00000422 74 68 65 20 74	msg10 db "the total number of cars parked: ",0
 	   6F 74 61 6C 20
 	   6E 75 6D 62 65
 	   72 20 6F 66 20
 	   63 61 72 73 20
 	   70 61 72 6B 65
 	   64 3A 20 00
- 0000029A 74 68 65 20 74	msg11 db "the total number of buses parked ",0
+ 00000444 74 68 65 20 74	msg11 db "the total number of vans parked ",0
 	   6F 74 61 6C 20
 	   6E 75 6D 62 65
 	   72 20 6F 66 20
-	   62 75 73 65 73
-	   20 70 61 72 6B
-	   65 64 20 00
- 000002BC 2A 2A 2A 52 65	msg12 db "***Record deleted successfully***",0
+	   76 61 6E 73 20
+	   70 61 72 6B 65
+	   64 20 00
+ 00000465 2A 2A 2A 52 65	msg12 db "***Record deleted successfully***",0
 	   63 6F 72 64 20
 	   64 65 6C 65 74
 	   65 64 20 73 75
 	   63 63 65 73 73
 	   66 75 6C 6C 79
 	   2A 2A 2A 00
- 000002DE 57 72 6F 6E 67	msg13 db "Wrong Password Enter Again",0
+ 00000487 57 72 6F 6E 67	msg13 db "Wrong Password or username Enter Again",0
 	   20 50 61 73 73
 	   77 6F 72 64 20
-	   45 6E 74 65 72
-	   20 41 67 61 69
-	   6E 00
- 000002F9 53 75 63 63 65	msg14 db "Successfully Login ",0
+	   6F 72 20 75 73
+	   65 72 6E 61 6D
+	   65 20 45 6E 74
+	   65 72 20 41 67
+	   61 69 6E 00
+ 000004AE 53 75 63 63 65	msg14 db "Successfully Login ",0
 	   73 73 66 75 6C
 	   6C 79 20 4C 6F
 	   67 69 6E 20 00
+ 000004C2 53 6F 72 72 79	msg15 db "Sorry! Parking is Full ",0
+	   21 20 50 61 72
+	   6B 69 6E 67 20
+	   69 73 20 46 75
+	   6C 6C 20 00
 
- 0000030D 00000032		tvacy dd 50
- 00000311 00000000		tamount dd 0
- 00000315 00000000		tcount dd  0
- 00000319 00000000		am1 dd ?
- 0000031D 00000000		am2 dd ?
- 00000321 00000000		am3 dd ?
- 00000325 00000000		opt1 dd ?
- 00000329 00000000		password dd ?
- 0000032D 00000000		username dd ?
 
- 00000331  00000096 [		storage dd 150 dup(?) 
-	    00000000
-	   ]
+
+ 000004DA 20 20 20 20 20	msg16 db "                ",0
+	   20 20 20 20 20
+	   20 20 20 20 20
+	   20 00
+ 000004EB 56 65 68 69 63	msg17 db "Vehical Numbers:",0
+	   61 6C 20 4E 75
+	   6D 62 65 72 73
+	   3A 00
+ 000004FC 44 61 74 65 20	msg18 db "Date In:        ",0
+	   49 6E 3A 20 20
+	   20 20 20 20 20
+	   20 00
+ 0000050D 44 61 74 65 20	msg19 db "Date Out:       ",0
+	   4F 75 74 3A 20
+	   20 20 20 20 20
+	   20 00
+ 0000051E 0D 0A 70 6C 65	msg20 Byte 0dh,0ah,"please Pay $",0
+	   61 73 65 20 50
+	   61 79 20 24 00
+
+ 0000052D 00000032		tvacy dword 50
+ 00000531 00000000		tamount dword 0
+				;totalcount dword  0
+ 00000535 0000000A		bikeamount dword 10
+ 00000539 0000000F		caramount dword 15
+ 0000053D 00000014		vanamount dword 20
+ 00000541 00000000		totalamount dword 0
+
+ 00000545 00000000		occvacancy dword 0
+ 00000549 00000000		loopcontrolvar dword 0
+
+
+ 0000054D 00000000		count Dword 0
+ 00000551 00000000		number Dword ?
+ 00000555 00000000		datein dword ?
+ 00000559 00000000		monthin dword ?
+ 0000055D 00000000		yearin dword ?
+ 00000561			password byte 20 dup(?)
+ 00000575			username byte 20 dup(?)
 
  00000589 70 61 73 73 77	passfile byte "password.txt",0 
 	   6F 72 64 2E 74
 	   78 74 00
+
+
  00000596 00000000		fhandler dword ?
- 0000059A 00			temp byte ?
 
+
+
+ 0000059A			tempuser byte 20 dup(?)
+ 000005AE			temppass byte 20 dup (?)
+
+
+
+
+ 000005C2			carno byte 550 dup(0)
+ 000007E8			adin byte 550 dup(0)                 ;Arrays to store credentials
+ 00000A0E			adout byte 550 dup(0)
+
+
+
+ 00000C34			vNo byte 11 dup(0)
+ 00000C3F			din byte 11 dup(0)				;Variables to enter credentials
+ 00000C4A			dout byte 11 dup(0)
+
+ 00000C55			compre byte 11 dup(0)     ;variable to store date to be matched
+
+ 00000C60 0000000B		siz dword 11   ;used to calculate next variable
+ 00000C64 00000000		cal dword ?    ;calculate where is the next variable in array
+
+ 00000C68 00000000		i dword 0       ; to store the loop incremntation
+ 00000C6C 00000000		flag dword 0    ;flag used in park out
+ 00000C70 00000000		flag1 dword 0    ;flag used in park out
+ 00000C74 00000000		temp dword ?     ;to store the loop ecx value in parkout 
+				 
+ 00000C78			pr1 byte 2 dup(0)   ; to store date in  to convert it into integer
+ 00000C7A			pr2 byte 2 dup(0)   ; to store date out to convert it into integer
+ 00000C7C			pr3 byte 2 dup(0)
+
+ 00000C7E 00000000		value1 dword 0		; to store converted integer
+ 00000C82 00000000		value2 dword 0
+ 00000C86 0000000A		a dword 10          ;helper in order to convert o integer
  00000000			.code
+
  00000000			main proc
+ 00000000  B8 0000000E		mov eax,yellow
+ 00000005  E8 00000000 E	call setTextColor
+ 0000000A  E8 00000000 E	call crlf
+ 0000000F  BA 00000000 R	mov edx,offset opt                         
+ 00000014  E8 00000000 E	call writestring                            ;------To Write 
+ 00000019  E8 00000000 E	call crlf                                   ;      welcm msg-----
+ 0000001E  E8 00000000 E	call crlf
 
- 00000000  BA 00000589 R	mov edx,offset passfile
- 00000005  E8 00000000 E	call openInputFile
- 0000000A  BA 0000059A R	mov edx, offset temp
- 0000000F  B9 00000002		mov ecx, 2
- 00000014  E8 00000000 E	call readfromfile
+ 00000023  E8 00000000 E	call crlf
+ 00000028  BA 0000006E R	mov edx,offset opt1                         
+ 0000002D  E8 00000000 E	call writestring                            ;------To Write 
+ 00000032  E8 00000000 E	call crlf                                   ;      Login msg-----
+ 00000037  E8 00000000 E	call crlf
+
+ 0000003C  B8 0000000F		mov eax,white
+ 00000041  E8 00000000 E	call setTextColor
+
+ 00000046  EB 25		jmp goout									;in order to avoid the running of wrong tag 
+
+ 00000048			wrong:                                      ;in case if password is wrong
+
+ 00000048  B8 00000004		mov eax,red
+ 0000004D  E8 00000000 E	call setTextColor
+ 00000052  BA 00000487 R	mov edx, offset msg13
+ 00000057  E8 00000000 E	call writestring							;to show the msg of wrong input
+ 0000005C  E8 00000000 E	call crlf
+
+ 00000061  B8 0000000F		mov eax,white
+ 00000066  E8 00000000 E	call setTextColor
+
+ 0000006B  EB 00		jmp goout 
+
+ 0000006D			goout:
+
+ 0000006D  BA 000000DC R	mov edx,offset opt2                      
+ 00000072  E8 00000000 E	call writestring                            ;------To Write Enter user name msg-----
+
+ 00000077  BA 00000575 R	mov edx,offset username
+ 0000007C  B9 00000014		mov ecx, sizeof username
+ 00000081  E8 00000000 E	call readString  							; Enter user name
+ 00000086  E8 00000000 E	call crlf  
+
+				;mov edx,offset username
+				;call writestring                            ;username output
+				        
+
+ 0000008B  BA 000000ED R	mov edx,offset opt3                      
+ 00000090  E8 00000000 E	call writestring                            ;------To Write Enter password msg-----
+
+ 00000095  BA 00000561 R	mov edx,offset password
+ 0000009A  B9 00000014		mov ecx, sizeof password
+ 0000009F  E8 00000000 E	call readString  							; Enter password
+ 000000A4  E8 00000000 E	call crlf 
+
+				;mov edx,offset password					;password output
+				;call writestring
 
 
- 00000019  E8 00000000 E	call writestring
+
+				; ********* C H E C K I N G - 1 S T - P A S S W O R D - A N D - U S E R N A M E  ********* 
+				                                        
+
+ 000000A9  E8 00000951		call pass1										   ;Calling function to read from file
+
+																	;Check if user name is right
+				INVOKE Str_compare, ADDR tempuser, ADDR username ;comparring the credentials of the system
+ 000000AE  68 00000575 R   *	    push   OFFSET username
+ 000000B3  68 0000059A R   *	    push   OFFSET tempuser
+ 000000B8  E8 00000000 E   *	    call   Str_compare
+ 000000BD  75 89		jne wrong												;if correct check password
+
+																 ;Check IF password is right or wrong
+				INVOKE Str_compare, ADDR temppass, ADDR password ;comparring the credentials of the system
+ 000000BF  68 00000561 R   *	    push   OFFSET password
+ 000000C4  68 000005AE R   *	    push   OFFSET temppass
+ 000000C9  E8 00000000 E   *	    call   Str_compare
+ 000000CE  0F 85 FFFFFF74	jne wrong                                       ;if wrong check senond pssword
+ 000000D4  EB 00		jmp T1											 ;jmp if password is right
+
+
+ 000000D6			T1:		
+ 000000D6  B8 00000002		mov eax,green
+ 000000DB  E8 00000000 E	call setTextColor
+
+ 000000E0  BA 000004AE R	mov edx, offset msg14
+ 000000E5  E8 00000000 E	call writestring
+
+ 000000EA  B8 0000000F		mov eax,white
+ 000000EF  E8 00000000 E	call setTextColor
+
+				; *********************** MAIN PAGE ************************
+
+ 000000F4				mainpage:										; Main page of system
+
+ 000000F4  BA 000000FE R				mov edx, offset msg1						; showing parkin option
+ 000000F9  E8 00000000 E				call WriteString
+
+ 000000FE  BA 0000010D R				mov edx, offset msg2						; showing parkout option
+ 00000103  E8 00000000 E				call WriteString
+
+ 00000108  BA 0000011D R				mov edx, offset msg3						; showing logout option
+ 0000010D  E8 00000000 E				call WriteString
+
+ 00000112  BA 0000012B R				mov edx, offset msg33						; showing View Records option
+ 00000117  E8 00000000 E				call WriteString
+
+ 0000011C  E8 00000000 E				call crlf
+ 00000121  E8 00000000 E				call readint								; Input option to parkin, park out or to logout
+ 00000126  83 F8 04					cmp eax, 4									 ; if option is 4 then check if user wants to view records
+ 00000129  0F 84 000000DB				je viewR
+ 0000012F  83 F8 02					cmp eax, 2									; check what user wants (parkin, parkout, logout)
+
+ 00000132  7C 08					jl parkin
+ 00000134  74 70					je parkout
+ 00000136  0F 8F FFFFFF31				jg goout
+
+				; ********************* PARKING IN CONDITION *********************
+
+ 0000013C					parkin:										; Condition for parking in
+ 0000013C  BA 000001A4 R				mov edx, offset op
+ 00000141  E8 00000000 E				call WriteString
+ 00000146  E8 00000000 E				call crlf
+ 0000014B  BA 000001B1 R				mov edx, offset op1
+ 00000150  E8 00000000 E				call WriteString
+
+ 00000155  BA 000001C2 R				mov edx, offset op2
+ 0000015A  E8 00000000 E				call WriteString
+
+ 0000015F  BA 000001CD R				mov edx, offset op3
+ 00000164  E8 00000000 E				call WriteString
+
+ 00000169  BA 000001D8 R				mov edx, offset op4
+ 0000016E  E8 00000000 E				call WriteString
+
+ 00000173  BA 000001E4 R				mov edx, offset op5
+ 00000178  E8 00000000 E				call WriteString
+ 0000017D  E8 00000000 E				call crlf
+ 00000182  E8 00000000 E				call readint				; Input vehicle you want to park or exit from page
+								
+ 00000187  83 F8 05					cmp eax, 5					; ---- check what user wants 
+ 0000018A  0F 84 000000C0				je _exit					; park bike, car or van
+ 00000190  83 F8 04					cmp eax, 4					; or to go back -----
+ 00000193  0F 84 FFFFFF5B				je mainpage
+ 00000199  83 F8 02					cmp eax, 2
+								
+ 0000019C  7C 76					jl Tbike
+ 0000019E  74 7E					je Tcar
+ 000001A0  0F 8F 00000082				jg Tvan
 							
+							;jmp parkin						; Returning back to parking in options
+								
+								
+				; *********************** PARKING OUT CONDITION **********************
 
-				exit	
- 0000001E  6A 00	   *	    push   +000000000h
- 00000020  E8 00000000 E   *	    call   ExitProcess
- 00000025			main endp
-				end main
-Microsoft (R) Macro Assembler Version 14.16.27032.1	    11/22/19 15:39:46
+ 000001A6					parkout:										; Condition for parking out
+ 000001A6  BA 00000348 R				mov edx, offset header2
+ 000001AB  E8 00000000 E				call WriteString
+ 000001B0  E8 00000000 E				call crlf
+
+ 000001B5  BA 000001B1 R				mov edx, offset op1								; Showing vehicles user can park
+ 000001BA  E8 00000000 E				call WriteString
+
+ 000001BF  BA 000001C2 R				mov edx, offset op2
+ 000001C4  E8 00000000 E				call WriteString
+
+ 000001C9  BA 000001CD R				mov edx, offset op3
+ 000001CE  E8 00000000 E				call WriteString
+								
+ 000001D3  BA 000001D8 R				mov edx, offset op4
+ 000001D8  E8 00000000 E				call WriteString
+
+ 000001DD  BA 000001E4 R				mov edx, offset op5
+ 000001E2  E8 00000000 E				call WriteString
+ 000001E7  E8 00000000 E				call crlf
+ 000001EC  E8 00000000 E				call readint							; Input which vehicle to park out
+								
+ 000001F1  83 F8 05					cmp eax, 5								; ---- check what user wants 
+ 000001F4  74 5A					je _exit								; park bike, car or van
+ 000001F6  83 F8 04					cmp eax, 4								; or to go back ----
+ 000001F9  0F 84 FFFFFEF5				je mainpage
+ 000001FF  83 F8 02					cmp eax, 2
+								
+ 00000202  7C 2E					jl Toutbike
+ 00000204  74 36					je Toutcar
+ 00000206  7F 3E					jg Toutvan
+
+ 00000208  EB 9C					jmp parkout
+								
+				 ; *********************** View Records **********************
+ 0000020A			 viewR:
+ 0000020A  E8 000002CE		            call viewRecords
+
+ 0000020F  E9 FFFFFEE0					jmp mainpage
+
+				; ***************************** TAGS FOR PARKING IN ************************************
+
+ 00000214				Tbike:
+ 00000214  E8 00000066				call parkbike
+ 00000219  E9 FFFFFF1E				jmp parkin
+ 0000021E				Tcar:
+ 0000021E  E8 00000126				call parkcar
+ 00000223  E9 FFFFFF14				jmp parkin
+ 00000228				Tvan:
+ 00000228  E8 000001E6				call parkvan
+ 0000022D  E9 FFFFFF0A				jmp parkin
+
+				; ***************************** TAGS FOR PARKING OUT ************************************
+
+ 00000232				Toutbike:
+ 00000232  E8 00000321				call bikeout
+ 00000237  E9 FFFFFF6A				jmp parkout
+ 0000023C				Toutcar:
+ 0000023C  E8 000004A4				call carout
+ 00000241  E9 FFFFFF60				jmp parkout
+ 00000246				Toutvan:
+ 00000246  E8 00000627				call vanout
+ 0000024B  E9 FFFFFF56				jmp parkout
+
+
+				; ***************************** EXIT PROGRAM ************************************
+ 00000250						_exit:									; Condition for exiting system
+
+
+
+
+
+ 00000250  BA 00000373 R				    mov edx,offset callamount
+ 00000255  E8 00000000 E				    call writestring
+ 0000025A  A1 00000541 R					mov eax,totalamount					;to show total amount
+ 0000025F  E8 00000000 E					call writeint
+ 00000264  E8 00000000 E					call crlf
+
+ 00000269  BA 000002F5 R					mov edx, offset data7
+ 0000026E  E8 00000000 E					call WriteString
+ 00000273  E8 00000000 E					call crlf
+								exit
+ 00000278  6A 00	   *	    push   +000000000h
+ 0000027A  E8 00000000 E   *	    call   ExitProcess
+ 0000027F							main ENDP 
+
+
+
+				; ******************************************************************************************
+				; ********************************** P R O C E D U R E S ***********************************
+				; ******************************************************************************************
+				 
+				 ; ********* P A R K I N G - B I K E ********* 
+ 0000027F			parkbike PROC												; Condition for parking bike
+
+ 0000027F  83 3D 00000545 R							CMP occvacancy, 50
+	   32
+ 00000286  0F 8D 000000B0							jge Full                     ;If Vacany is Full
+
+				;             ------------E N T E R -  B I K E ' S - N U M B E R------------
+
+ 0000028C  BA 000001F0 R							mov edx, offset data1       ;msg to write number
+ 00000291  E8 00000000 E							call WriteString
+
+ 00000296  BA 00000C34 R							mov edx,offset vNo
+ 0000029B  B9 0000000B								mov ecx,sizeof vNo			;take vehical no from user
+ 000002A0  E8 00000000 E							call readstring
+
+ 000002A5  B9 0000000B								mov ecx,sizeof vNo			;In loop give sizeof vehical number
+
+ 000002AA  A1 00000545 R							mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+ 000002AF  F7 25 00000C60 R							mul siz					;multiplying it with 11 (size of each) 33
+ 000002B5  A3 00000C64 R							mov cal,eax					;mov it in cal
+
+ 000002BA  E8 00000000 E							call crlf
+ 000002BF  E8 00000000 E							call writeint			;checking the value
+ 000002C4  E8 00000000 E							call crlf
+
+ 000002C9  8B F0								mov esi,eax				;give esi that size like 33
+ 000002CB  BA 00000000								mov edx,0				;give edx the starting address of variable which stores bike's number
+
+										;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+ 000002D0									copy:
+ 000002D0  8A 82 00000C34 R						    mov al, vNo[edx]
+ 000002D6  88 86 000005C2 R						    mov carno[esi],al
+ 000002DC  42									inc edx
+ 000002DD  46									inc esi
+ 000002DE  E2 F0								loop copy
+
+								 ;             ------------E N T E R -  D A T E - I N------------
+
+ 000002E0  BA 00000250 R					 mov edx, offset date1       ;msg to write number
+ 000002E5  E8 00000000 E							call WriteString
+
+ 000002EA  BA 00000C3F R							mov edx,offset din
+ 000002EF  B9 0000000B								mov ecx,sizeof din			;take Date in from user
+ 000002F4  E8 00000000 E							call readstring
+
+ 000002F9  B9 0000000B								mov ecx,sizeof din			;In loop give sizeof vehical number
+
+ 000002FE  A1 00000545 R							mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+ 00000303  F7 25 00000C60 R							mul siz					;multiplying it with 11 (size of each) 33
+ 00000309  A3 00000C64 R							mov cal,eax					;mov it in cal
+
+ 0000030E  E8 00000000 E							call crlf
+ 00000313  E8 00000000 E							call writeint			;checking the value
+ 00000318  E8 00000000 E							call crlf
+
+ 0000031D  8B F0								mov esi,eax				;give esi that size like 33
+ 0000031F  BA 00000000								mov edx,0				;give edx the starting address of variable which stores bike's number
+
+										;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+ 00000324									copy1:
+ 00000324  8A 82 00000C3F R						    mov al, din[edx]
+ 0000032A  88 86 000007E8 R						    mov adin[esi],al
+ 00000330  42									inc edx
+ 00000331  46									inc esi
+ 00000332  E2 F0								loop copy1
+
+ 00000334  FF 05 00000545 R							inc occvacancy		;updated total occupied vacay
+ 0000033A  EB 0C								jmp exit1
+
+
+ 0000033C									Full:
+ 0000033C  BA 000004C2 R							mov edx, offset msg15			;in case of full vacancy
+ 00000341  E8 00000000 E							call WriteString
+ 00000346  EB 00								jmp exit1
+
+ 00000348									exit1:
+ 00000348  C3									ret
+
+ 00000349			parkbike ENDP
+
+				; ********* P A R K I N G - C A R ********* 
+ 00000349			parkcar PROC												; Condition for parking car
+								
+ 00000349  83 3D 00000545 R							CMP occvacancy, 50
+	   32
+ 00000350  0F 8D 000000B0							jge Full                     ;If Vacany is Full
+
+				;             ------------E N T E R -  B I K E ' S - N U M B E R------------
+
+ 00000356  BA 000002A1 R							mov edx, offset data3       ;msg to write number
+ 0000035B  E8 00000000 E							call WriteString
+
+ 00000360  BA 00000C34 R							mov edx,offset vNo
+ 00000365  B9 0000000B								mov ecx,sizeof vNo			;take vehical no from user
+ 0000036A  E8 00000000 E							call readstring
+
+ 0000036F  B9 0000000B								mov ecx,sizeof vNo			;In loop give sizeof vehical number
+
+ 00000374  A1 00000545 R							mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+ 00000379  F7 25 00000C60 R							mul siz					;multiplying it with 11 (size of each) 33
+ 0000037F  A3 00000C64 R							mov cal,eax					;mov it in cal
+
+ 00000384  E8 00000000 E							call crlf
+ 00000389  E8 00000000 E							call writeint			;checking the value
+ 0000038E  E8 00000000 E							call crlf
+
+ 00000393  8B F0								mov esi,eax				;give esi that size like 33
+ 00000395  BA 00000000								mov edx,0				;give edx the starting address of variable which stores bike's number
+
+										;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+ 0000039A									copy:
+ 0000039A  8A 82 00000C34 R						    mov al, vNo[edx]
+ 000003A0  88 86 000005C2 R						    mov carno[esi],al
+ 000003A6  42									inc edx
+ 000003A7  46									inc esi
+ 000003A8  E2 F0								loop copy
+
+								 ;             ------------E N T E R -  D A T E - I N------------
+
+ 000003AA  BA 00000250 R					        mov edx, offset date1       ;msg to write number
+ 000003AF  E8 00000000 E							call WriteString
+
+ 000003B4  BA 00000C3F R							mov edx,offset din
+ 000003B9  B9 0000000B								mov ecx,sizeof din			;take Date in from user
+ 000003BE  E8 00000000 E							call readstring
+
+ 000003C3  B9 0000000B								mov ecx,sizeof din			;In loop give sizeof vehical number
+
+ 000003C8  A1 00000545 R							mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+ 000003CD  F7 25 00000C60 R							mul siz					;multiplying it with 11 (size of each) 33
+ 000003D3  A3 00000C64 R							mov cal,eax					;mov it in cal
+
+ 000003D8  E8 00000000 E							call crlf
+ 000003DD  E8 00000000 E							call writeint			;checking the value
+ 000003E2  E8 00000000 E							call crlf
+
+ 000003E7  8B F0								mov esi,eax				;give esi that size like 33
+ 000003E9  BA 00000000								mov edx,0				;give edx the starting address of variable which stores bike's number
+
+										;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+ 000003EE									copy1:
+ 000003EE  8A 82 00000C3F R						    mov al, din[edx]
+ 000003F4  88 86 000007E8 R						    mov adin[esi],al
+ 000003FA  42									inc edx
+ 000003FB  46									inc esi
+ 000003FC  E2 F0								loop copy1
+
+
+ 000003FE  FF 05 00000545 R							inc occvacancy		;updated total occupied vacay
+ 00000404  EB 0C								jmp exit1
+
+
+ 00000406									Full:
+ 00000406  BA 000004C2 R							mov edx, offset msg15			;in case of full vacancy
+ 0000040B  E8 00000000 E							call WriteString
+ 00000410  EB 00								jmp exit1
+
+ 00000412									exit1:
+ 00000412  C3									ret
+ 00000413			parkcar ENDP
+
+				; ********* P A R K I N G - V A N ********* 
+ 00000413			parkvan PROC			
+ 00000413  83 3D 00000545 R							CMP occvacancy, 50
+	   32
+ 0000041A  0F 8D 000000B0							jge Full                     ;If Vacany is Full
+
+				;             ------------E N T E R -  B I K E ' S - N U M B E R------------
+
+ 00000420  BA 000002CB R							mov edx, offset data5       ;msg to write number
+ 00000425  E8 00000000 E							call WriteString
+
+ 0000042A  BA 00000C34 R							mov edx,offset vNo
+ 0000042F  B9 0000000B								mov ecx,sizeof vNo			;take vehical no from user
+ 00000434  E8 00000000 E							call readstring
+
+
+ 00000439  B9 0000000B								mov ecx,sizeof vNo			;In loop give sizeof vehical number
+
+ 0000043E  A1 00000545 R							mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+ 00000443  F7 25 00000C60 R							mul siz					;multiplying it with 11 (size of each) 33
+ 00000449  A3 00000C64 R							mov cal,eax					;mov it in cal
+
+ 0000044E  E8 00000000 E							call crlf
+ 00000453  E8 00000000 E							call writeint			;checking the value
+ 00000458  E8 00000000 E							call crlf
+
+ 0000045D  8B F0								mov esi,eax				;give esi that size like 33
+ 0000045F  BA 00000000								mov edx,0				;give edx the starting address of variable which stores bike's number
+
+										;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+ 00000464									copy:
+ 00000464  8A 82 00000C34 R						    mov al, vNo[edx]
+ 0000046A  88 86 000005C2 R						    mov carno[esi],al
+ 00000470  42									inc edx
+ 00000471  46									inc esi
+ 00000472  E2 F0								loop copy
+
+								 ;             ------------E N T E R -  D A T E - I N------------
+
+ 00000474  BA 00000250 R					        mov edx, offset date1       ;msg to write number
+ 00000479  E8 00000000 E							call WriteString
+
+ 0000047E  BA 00000C3F R							mov edx,offset din
+ 00000483  B9 0000000B								mov ecx,sizeof din			;take Date in from user
+ 00000488  E8 00000000 E							call readstring
+
+ 0000048D  B9 0000000B								mov ecx,sizeof din			;In loop give sizeof vehical number
+
+ 00000492  A1 00000545 R							mov eax,occvacancy       ;moving occupied vacay in eax like 3 for example
+ 00000497  F7 25 00000C60 R							mul siz					;multiplying it with 11 (size of each) 33
+ 0000049D  A3 00000C64 R							mov cal,eax					;mov it in cal
+
+ 000004A2  E8 00000000 E							call crlf
+ 000004A7  E8 00000000 E							call writeint			;checking the value
+ 000004AC  E8 00000000 E							call crlf
+
+ 000004B1  8B F0								mov esi,eax				;give esi that size like 33
+ 000004B3  BA 00000000								mov edx,0				;give edx the starting address of variable which stores bike's number
+
+										;             ------------C O D E - T O - S T O R E - I N - L O O P------------
+
+ 000004B8									copy1:
+ 000004B8  8A 82 00000C3F R						    mov al, din[edx]
+ 000004BE  88 86 000007E8 R						    mov adin[esi],al
+ 000004C4  42									inc edx
+ 000004C5  46									inc esi
+ 000004C6  E2 F0								loop copy1
+
+
+ 000004C8  FF 05 00000545 R							inc occvacancy		;updated total occupied vacay
+
+ 000004CE  EB 0C								jmp exit1
+
+
+ 000004D0									Full:
+ 000004D0  BA 000004C2 R							mov edx, offset msg15			;in case of full vacancy
+ 000004D5  E8 00000000 E							call WriteString
+ 000004DA  EB 00								jmp exit1
+
+ 000004DC									exit1:
+										
+ 000004DC  C3									ret
+ 000004DD			parkvan ENDP
+
+				 ; ********* V I E W - R E C O R D S ********* 
+ 000004DD			viewRecords PROC
+
+ 000004DD  BA 000004EB R							mov edx,offset msg17				;To print Number
+ 000004E2  E8 00000000 E							call writestring
+
+									;	mov eax,occvacancy                 ;Trying to make value for ECX
+									;	mul siz
+
+ 000004E7  BE 00000000		 						mov esi,0							
+ 000004EC  B9 00000226								mov ecx, lengthof carno
+
+ 000004F1									co:
+ 000004F1  8A 86 000005C2 R						    mov al, carno[esi]
+ 000004F7  E8 00000000 E						    call writechar					;LOOP TO PRINT CAR NUMBERs
+ 000004FC  46									inc esi
+ 000004FD  E2 F2								loop co
+
+ 000004FF  E8 00000000 E							call Crlf
+ 00000504  E8 00000000 E							call crlf
+ 00000509  BA 000004FC R							mov edx,offset msg18				;To print Datein
+ 0000050E  E8 00000000 E							call writestring
+
+ 00000513  BE 00000000								mov esi,0
+ 00000518  B9 00000226								mov ecx,550
+
+ 0000051D									co1:
+ 0000051D  8A 86 000007E8 R						    mov al, adin[esi]
+ 00000523  E8 00000000 E						    call writechar					;LOOP TO PRINT DATE IN
+ 00000528  46									inc esi
+ 00000529  E2 F2								loop co1
+
+ 0000052B  E8 00000000 E							call Crlf
+ 00000530  E8 00000000 E							call crlf
+ 00000535  BA 0000050D R							mov edx,offset msg19				;To print Date out
+ 0000053A  E8 00000000 E							call writestring
+
+ 0000053F  BE 00000000								mov esi,0
+ 00000544  B9 00000226								mov ecx,550
+
+ 00000549									co2:
+ 00000549  8A 86 00000A0E R						    mov al, adout[esi]
+ 0000054F  E8 00000000 E						    call writechar					;LOOP TO PRINT DATE IN
+ 00000554  46									inc esi
+ 00000555  E2 F2								loop co2
+
+ 00000557  C3									RET
+
+ 00000558			 viewRecords ENDP
+
+				; ********* P A R K I N G - B I K E O U T ********* 
+ 00000558			bikeout PROC												; Condition for parking out bike
+ 00000558  BA 000001F0 R						    mov edx, offset data1
+ 0000055D  E8 00000000 E							call WriteString
+
+					;             ------------E N T E R -  B I K E ' S - N U M B E R------------
+
+ 00000562  BA 00000C34 R							mov edx,offset vNo
+ 00000567  B9 0000000B								mov ecx,sizeof vNo					;input car's number
+ 0000056C  E8 00000000 E							call readstring
+										
+
+ 00000571  BE 00000000								mov esi,0							;giving esi a starting address which is 0
+										;mov edx,0
+ 00000576  B9 00000032								mov ecx, 50							;loop for all values
+
+ 0000057B									loop1:
+ 0000057B  BA 00000000								mov edx,0							;giving edx a starting 0 address
+ 00000580  89 0D 00000C74 R							mov temp,ecx						;storing ecx for inner loop
+ 00000586  8B 0D 00000C60 R							mov ecx,siz							;inner loop for 11 times which is size
+ 0000058C  8B C6								mov eax,esi							;storing esi
+ 0000058E  A3 00000C64 R							mov cal,eax							;storing result for future use in entering the date out
+					           
+ 00000593									loop2:
+ 00000593  8A 86 000005C2 R							mov al,carno[esi]
+										;call writechar
+ 00000599  88 82 00000C55 R							mov compre[edx],al
+ 0000059F  46									inc esi
+ 000005A0  42									inc edx
+ 000005A1  E2 F0								loop loop2
+										 ;             ------------C O M P A R E -  B O T H - N U M B E R S------------
+										
+										INVOKE Str_compare, ADDR vNo, ADDR compre   ;comparing both strings
+ 000005A3  68 00000C55 R   *	    push   OFFSET compre
+ 000005A8  68 00000C34 R   *	    push   OFFSET vNo
+ 000005AD  E8 00000000 E   *	    call   Str_compare
+ 000005B2  74 0D								je found									;jmp if found
+
+ 000005B4  8B 0D 00000C74 R							mov ecx,temp								;restoring ecx
+ 000005BA  E2 BF								loop loop1
+ 000005BC  E9 00000117								jmp notFound								;incase if not found
+										
+										 ;             ------------E N T E R -  D A T E - O U T ------------
+ 000005C1									found:
+ 000005C1  BA 00000278 R							mov edx,offset date2
+ 000005C6  E8 00000000 E							call writestring
+
+ 000005CB  BA 00000C4A R							mov edx,offset dout
+ 000005D0  B9 0000000B								mov ecx,sizeof dout				;taking date out from user
+ 000005D5  E8 00000000 E							call readString
+
+										 ;             ------------S T O R I N G - I N - D A T E - O U T - A R R A Y ------------
+
+ 000005DA  8B 35 00000C64 R							mov esi,cal						;mov starting value in esi
+ 000005E0  8B 0D 00000C60 R							mov ecx,siz						;giving esi size 11
+ 000005E6  BA 00000000								mov edx,0						;giving edx starting address of variable
+
+ 000005EB									copy1:							;loop to store date out in main array
+ 000005EB  8A 82 00000C4A R						    mov al, dout[edx]				
+ 000005F1  88 86 00000A0E R						    mov adout[esi],al
+ 000005F7  42									inc edx
+ 000005F8  46									inc esi
+ 000005F9  E2 F0								loop copy1
+
+								 ;             ------------F I N D I N G - P R I C E ------------
+ 000005FB  8B 35 00000C64 R					        mov esi,cal
+ 00000601  BA 00000C78 R							mov edx, offset pr1
+ 00000606  8A 86 000007E8 R							mov al, adin[esi]				
+ 0000060C  88 02								mov [edx],al						;storing datein day in a variable
+ 0000060E  8A 86 000007E9 R							mov al, adin[esi+1]				
+ 00000614  88 42 01								mov [edx+1],al
+
+ 00000617  8B 35 00000C64 R						    mov esi,cal
+ 0000061D  BA 00000C7A R							mov edx, offset pr2
+ 00000622  8A 86 00000A0E R							mov al, adout[esi]				    ;storing dateout day in a variable
+ 00000628  88 02								mov [edx],al
+ 0000062A  8A 86 00000A0F R							mov al, adout[esi+1]				
+ 00000630  88 42 01								mov [edx+1],al
+
+										;             ------------D A T E - 1 - T O - I N T E G E R ------------
+
+ 00000633  B8 00000000								mov eax,0
+ 00000638  A3 00000C7E R							mov value1,eax
+ 0000063D  BA 00000C78 R	                        mov edx, offset pr1
+ 00000642  8A 42 01								mov al,[edx+1]
+ 00000645  2C 30								sub al,48						;val = 0                                                                          
+										      							;val = val + ('3' - 48) * 10power0       [val now is 3]
+ 00000647  03 05 00000C7E R							add eax,value1					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+ 0000064D  A3 00000C7E R							mov value1,eax
+ 00000652  B8 00000000								mov eax,0
+ 00000657  8A 02								mov al,[edx]
+ 00000659  2C 30								sub al,48
+ 0000065B  F7 25 00000C86 R							mul a
+ 00000661  03 05 00000C7E R							add eax,value1
+ 00000667  A3 00000C7E R							mov value1,eax
+
+										;             ------------D A T E - 2 - T O - I N T E G E R ------------
+
+ 0000066C  B8 00000000								mov eax,0
+ 00000671  A3 00000C82 R							mov value2,eax
+ 00000676  BA 00000C7A R	                        mov edx, offset pr2
+ 0000067B  8A 42 01								mov al,[edx+1]					;val = 0
+ 0000067E  2C 30								sub al,48						;val = val + ('3' - 48) * 10power0       [val now is 3]                                                                       											
+ 00000680  03 05 00000C82 R						add eax,value2					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+ 00000686  A3 00000C82 R							mov value2,eax
+ 0000068B  B8 00000000								mov eax,0
+ 00000690  8A 02								mov al,[edx]
+ 00000692  2C 30								sub al,48
+ 00000694  F7 25 00000C86 R							mul a
+ 0000069A  03 05 00000C82 R							add eax,value2
+ 000006A0  A3 00000C82 R							mov value2,eax
+
+											;             ------------S H O W I N G - P R I C E------------
+ 000006A5  A1 00000C82 R							mov eax,value2
+ 000006AA  2B 05 00000C7E R							sub eax,value1					;calculating amount to pay
+ 000006B0  F7 25 00000535 R							mul bikeamount
+
+ 000006B6  BA 0000051E R							mov edx,offset msg20
+ 000006BB  E8 00000000 E							call writestring				;show that pay this amount
+ 000006C0  E8 00000000 E							call writeint
+
+ 000006C5  03 05 00000541 R							add eax,totalamount				;total amount calculator
+ 000006CB  A3 00000541 R							mov totalamount,eax
+
+
+
+
+ 000006D0  FF 0D 00000545 R							dec occvacancy
+ 000006D6  EB 0C								jmp _exit
+									
+ 000006D8									notFound:
+ 000006D8  BA 00000393 R							mov edx,offset NoMatch
+ 000006DD  E8 00000000 E							call writestring
+ 000006E2  EB 00								jmp _exit
+
+ 000006E4									_exit:
+ 000006E4  C3									ret
+ 000006E5			bikeout ENDP
+
+				; ********* P A R K I N G - C A R O U T ********* 
+ 000006E5			carout PROC													; Condition for parking out car
+ 000006E5  BA 000002A1 R							mov edx, offset data3
+ 000006EA  E8 00000000 E							call WriteString
+
+					;             ------------E N T E R -  C A R ' S - N U M B E R------------
+
+ 000006EF  BA 00000C34 R							mov edx,offset vNo
+ 000006F4  B9 0000000B								mov ecx,sizeof vNo					;input car's number
+ 000006F9  E8 00000000 E							call readstring
+										
+
+ 000006FE  BE 00000000								mov esi,0							;giving esi a starting address which is 0
+										;mov edx,0
+ 00000703  B9 00000032								mov ecx, 50							;loop for all values
+
+ 00000708									loop1:
+ 00000708  BA 00000000								mov edx,0							;giving edx a starting 0 address
+ 0000070D  89 0D 00000C74 R							mov temp,ecx						;storing ecx for inner loop
+ 00000713  8B 0D 00000C60 R							mov ecx,siz							;inner loop for 11 times which is size
+ 00000719  8B C6								mov eax,esi							;storing esi
+ 0000071B  A3 00000C64 R							mov cal,eax							;storing result for future use in entering the date out
+					           
+ 00000720									loop2:
+ 00000720  8A 86 000005C2 R							mov al,carno[esi]
+										;call writechar
+ 00000726  88 82 00000C55 R							mov compre[edx],al
+ 0000072C  46									inc esi
+ 0000072D  42									inc edx
+ 0000072E  E2 F0								loop loop2
+												     																			;mov edx,offset vNo
+																																;call writestring
+																																;mov edx,offset compre
+																																;call writestring
+										 ;             ------------C O M P A R E -  B O T H - N U M B E R S------------
+										
+										INVOKE Str_compare, ADDR vNo, ADDR compre   ;comparing both strings
+ 00000730  68 00000C55 R   *	    push   OFFSET compre
+ 00000735  68 00000C34 R   *	    push   OFFSET vNo
+ 0000073A  E8 00000000 E   *	    call   Str_compare
+ 0000073F  74 0D								je found									;jmp if found
+
+ 00000741  8B 0D 00000C74 R							mov ecx,temp								;restoring ecx
+ 00000747  E2 BF								loop loop1
+ 00000749  E9 00000117								jmp notFound								;incase if not found
+										
+										 ;             ------------E N T E R -  D A T E - O U T ------------
+ 0000074E									found:
+ 0000074E  BA 00000278 R							mov edx,offset date2
+ 00000753  E8 00000000 E							call writestring
+
+ 00000758  BA 00000C4A R							mov edx,offset dout
+ 0000075D  B9 0000000B								mov ecx,sizeof dout				;taking date out from user
+ 00000762  E8 00000000 E							call readString
+
+										 ;             ------------S T O R I N G - I N - D A T E - O U T - A R R A Y ------------
+
+ 00000767  8B 35 00000C64 R							mov esi,cal						;mov starting value in esi
+ 0000076D  8B 0D 00000C60 R							mov ecx,siz						;giving esi size 11
+ 00000773  BA 00000000								mov edx,0						;giving edx starting address of variable
+
+ 00000778									copy1:							;loop to store date out in main array
+ 00000778  8A 82 00000C4A R						    mov al, dout[edx]				
+ 0000077E  88 86 00000A0E R						    mov adout[esi],al
+ 00000784  42									inc edx
+ 00000785  46									inc esi
+ 00000786  E2 F0								loop copy1
+
+								 ;             ------------F I N D I N G - P R I C E ------------
+ 00000788  8B 35 00000C64 R					        mov esi,cal
+ 0000078E  BA 00000C78 R							mov edx, offset pr1
+ 00000793  8A 86 000007E8 R							mov al, adin[esi]				
+ 00000799  88 02								mov [edx],al						;storing datein day in a variable
+ 0000079B  8A 86 000007E9 R							mov al, adin[esi+1]				
+ 000007A1  88 42 01								mov [edx+1],al
+
+ 000007A4  8B 35 00000C64 R						    mov esi,cal
+ 000007AA  BA 00000C7A R							mov edx, offset pr2
+ 000007AF  8A 86 00000A0E R							mov al, adout[esi]				    ;storing dateout day in a variable
+ 000007B5  88 02								mov [edx],al
+ 000007B7  8A 86 00000A0F R							mov al, adout[esi+1]				
+ 000007BD  88 42 01								mov [edx+1],al
+
+										;             ------------D A T E - 1 - T O - I N T E G E R ------------
+
+ 000007C0  B8 00000000								mov eax,0
+ 000007C5  A3 00000C7E R							mov value1,eax
+ 000007CA  BA 00000C78 R	                        mov edx, offset pr1
+ 000007CF  8A 42 01								mov al,[edx+1]
+ 000007D2  2C 30								sub al,48						;val = 0                                                                          
+										      							;val = val + ('3' - 48) * 10power0       [val now is 3]
+ 000007D4  03 05 00000C7E R							add eax,value1					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+ 000007DA  A3 00000C7E R							mov value1,eax
+ 000007DF  B8 00000000								mov eax,0
+ 000007E4  8A 02								mov al,[edx]
+ 000007E6  2C 30								sub al,48
+ 000007E8  F7 25 00000C86 R							mul a
+ 000007EE  03 05 00000C7E R							add eax,value1
+ 000007F4  A3 00000C7E R							mov value1,eax
+
+										;             ------------D A T E - 2 - T O - I N T E G E R ------------
+
+ 000007F9  B8 00000000								mov eax,0
+ 000007FE  A3 00000C82 R							mov value2,eax
+ 00000803  BA 00000C7A R	                        mov edx, offset pr2
+ 00000808  8A 42 01								mov al,[edx+1]					;val = 0
+ 0000080B  2C 30								sub al,48						;val = val + ('3' - 48) * 10power0       [val now is 3]                                                                       											
+ 0000080D  03 05 00000C82 R							add eax,value2					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+ 00000813  A3 00000C82 R							mov value2,eax
+ 00000818  B8 00000000								mov eax,0
+ 0000081D  8A 02								mov al,[edx]
+ 0000081F  2C 30								sub al,48
+ 00000821  F7 25 00000C86 R							mul a
+ 00000827  03 05 00000C82 R							add eax,value2
+ 0000082D  A3 00000C82 R							mov value2,eax
+
+											;             ------------S H O W I N G - P R I C E------------
+ 00000832  A1 00000C82 R							mov eax,value2
+ 00000837  2B 05 00000C7E R							sub eax,value1					;calculating amount to pay
+ 0000083D  F7 25 00000539 R							mul caramount
+
+ 00000843  BA 0000051E R							mov edx,offset msg20
+ 00000848  E8 00000000 E							call writestring				;show that pay this amount
+ 0000084D  E8 00000000 E							call writeint
+
+ 00000852  03 05 00000541 R							add eax,totalamount				;total amount calculator
+ 00000858  A3 00000541 R							mov totalamount,eax
+ 0000085D  FF 0D 00000545 R							dec occvacancy
+ 00000863  EB 0C								jmp _exit
+									
+ 00000865									notFound:
+ 00000865  BA 00000393 R							mov edx,offset NoMatch
+ 0000086A  E8 00000000 E							call writestring
+ 0000086F  EB 00								jmp _exit
+
+ 00000871									_exit:
+
+ 00000871  C3									ret
+ 00000872			carout ENDP
+
+				; ********* P A R K I N G - V A N O U T ********* 
+ 00000872			vanout PROC													; Condition for parking out van
+ 00000872  BA 000002CB R							mov edx, offset data5
+ 00000877  E8 00000000 E							call WriteString
+
+					;             ------------E N T E R -  V A N ' S - N U M B E R------------
+
+ 0000087C  BA 00000C34 R							mov edx,offset vNo
+ 00000881  B9 0000000B								mov ecx,sizeof vNo					;input car's number
+ 00000886  E8 00000000 E							call readstring
+										
+
+ 0000088B  BE 00000000								mov esi,0							;giving esi a starting address which is 0
+										;mov edx,0
+ 00000890  B9 00000032								mov ecx, 50 						;loop for all values
+
+ 00000895									loop1:
+ 00000895  BA 00000000								mov edx,0							;giving edx a starting 0 address
+ 0000089A  89 0D 00000C74 R							mov temp,ecx						;storing ecx for inner loop
+ 000008A0  8B 0D 00000C60 R							mov ecx,siz							;inner loop for 11 times which is size
+ 000008A6  8B C6								mov eax,esi							;storing esi
+ 000008A8  A3 00000C64 R							mov cal,eax							;storing result for future use in entering the date out          
+ 000008AD									loop2:
+ 000008AD  8A 86 000005C2 R							mov al,carno[esi]
+										;call writechar
+ 000008B3  88 82 00000C55 R							mov compre[edx],al
+ 000008B9  46									inc esi
+ 000008BA  42									inc edx
+ 000008BB  E2 F0								loop loop2
+												     																			;mov edx,offset vNo
+																																;call writestring
+																																;mov edx,offset compre
+																																;call writestring
+										 ;             ------------C O M P A R E -  B O T H - N U M B E R S------------
+										
+										INVOKE Str_compare, ADDR vNo, ADDR compre   ;comparing both strings
+ 000008BD  68 00000C55 R   *	    push   OFFSET compre
+ 000008C2  68 00000C34 R   *	    push   OFFSET vNo
+ 000008C7  E8 00000000 E   *	    call   Str_compare
+ 000008CC  74 0D								je found									;jmp if found
+
+ 000008CE  8B 0D 00000C74 R							mov ecx,temp								;restoring ecx
+ 000008D4  E2 BF								loop loop1
+ 000008D6  E9 00000117								jmp notFound								;incase if not found
+										
+										 ;             ------------E N T E R -  D A T E - O U T ------------
+ 000008DB									found:
+ 000008DB  BA 00000278 R							mov edx,offset date2
+ 000008E0  E8 00000000 E							call writestring
+
+ 000008E5  BA 00000C4A R							mov edx,offset dout
+ 000008EA  B9 0000000B								mov ecx,sizeof dout				;taking date out from user
+ 000008EF  E8 00000000 E							call readString
+
+										 ;             ------------S T O R I N G - I N - D A T E - O U T - A R R A Y ------------
+
+ 000008F4  8B 35 00000C64 R							mov esi,cal						;mov starting value in esi
+ 000008FA  8B 0D 00000C60 R							mov ecx,siz						;giving esi size 11
+ 00000900  BA 00000000								mov edx,0						;giving edx starting address of variable
+
+ 00000905									copy1:							;loop to store date out in main array
+ 00000905  8A 82 00000C4A R						    mov al, dout[edx]				
+ 0000090B  88 86 00000A0E R						    mov adout[esi],al
+ 00000911  42									inc edx
+ 00000912  46									inc esi
+ 00000913  E2 F0								loop copy1
+
+								 ;             ------------F I N D I N G - P R I C E ------------
+ 00000915  8B 35 00000C64 R					        mov esi,cal
+ 0000091B  BA 00000C78 R							mov edx, offset pr1
+ 00000920  8A 86 000007E8 R							mov al, adin[esi]				
+ 00000926  88 02								mov [edx],al						;storing datein day in a variable
+ 00000928  8A 86 000007E9 R							mov al, adin[esi+1]				
+ 0000092E  88 42 01								mov [edx+1],al
+
+ 00000931  8B 35 00000C64 R						    mov esi,cal
+ 00000937  BA 00000C7A R							mov edx, offset pr2
+ 0000093C  8A 86 00000A0E R							mov al, adout[esi]				    ;storing dateout day in a variable
+ 00000942  88 02								mov [edx],al
+ 00000944  8A 86 00000A0F R							mov al, adout[esi+1]				
+ 0000094A  88 42 01								mov [edx+1],al
+
+										;             ------------D A T E - 1 - T O - I N T E G E R ------------
+
+ 0000094D  B8 00000000								mov eax,0
+ 00000952  A3 00000C7E R							mov value1,eax
+ 00000957  BA 00000C78 R	                        mov edx, offset pr1
+ 0000095C  8A 42 01								mov al,[edx+1]
+ 0000095F  2C 30								sub al,48						;val = 0                                                                          
+										      							;val = val + ('3' - 48) * 10power0       [val now is 3]
+ 00000961  03 05 00000C7E R							add eax,value1					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+ 00000967  A3 00000C7E R							mov value1,eax
+ 0000096C  B8 00000000								mov eax,0
+ 00000971  8A 02								mov al,[edx]
+ 00000973  2C 30								sub al,48
+ 00000975  F7 25 00000C86 R						mul a
+ 0000097B  03 05 00000C7E R							add eax,value1
+ 00000981  A3 00000C7E R							mov value1,eax
+
+										;             ------------D A T E - 2 - T O - I N T E G E R ------------
+
+ 00000986  B8 00000000								mov eax,0
+ 0000098B  A3 00000C82 R							mov value2,eax
+ 00000990  BA 00000C7A R	                        mov edx, offset pr2
+ 00000995  8A 42 01								mov al,[edx+1]					;val = 0
+ 00000998  2C 30								sub al,48						;val = val + ('3' - 48) * 10power0       [val now is 3]                                                                       											
+ 0000099A  03 05 00000C82 R							add eax,value2					;val = 3   + ('2' - 48) * 10power1       [val now is 23]
+ 000009A0  A3 00000C82 R							mov value2,eax
+ 000009A5  B8 00000000								mov eax,0
+ 000009AA  8A 02								mov al,[edx]
+ 000009AC  2C 30								sub al,48
+ 000009AE  F7 25 00000C86 R							mul a
+ 000009B4  03 05 00000C82 R							add eax,value2
+ 000009BA  A3 00000C82 R							mov value2,eax
+
+											;             ------------S H O W I N G - P R I C E------------
+ 000009BF  A1 00000C82 R							mov eax,value2
+ 000009C4  2B 05 00000C7E R							sub eax,value1					;calculating amount to pay
+ 000009CA  F7 25 0000053D R							mul vanamount
+
+ 000009D0  BA 0000051E R							mov edx,offset msg20
+ 000009D5  E8 00000000 E							call writestring				;show that pay this amount
+ 000009DA  E8 00000000 E							call writeint
+
+ 000009DF  03 05 00000541 R							add eax,totalamount				;total amount calculator
+ 000009E5  A3 00000541 R							mov totalamount,eax
+ 000009EA  FF 0D 00000545 R							dec occvacancy
+ 000009F0  EB 0C								jmp _exit
+									
+ 000009F2									notFound:
+ 000009F2  BA 00000393 R							mov edx,offset NoMatch
+ 000009F7  E8 00000000 E							call writestring
+ 000009FC  EB 00								jmp _exit
+
+									
+ 000009FE									_exit:
+
+ 000009FE  C3									ret
+ 000009FF			vanout ENDP
+
+
+
+
+
+				;           ***************************************************************************************************
+				;           ************************************ P R O C E D U R E S ******************************************
+				;           ***************************************************************************************************
+
+
+				; ********* R E A D I N G - P A S S W O R D 1 ********* 
+
+
+ 000009FF			pass1 PROC						    ;Procedure to read from file 1
+
+				                                     ;File Handling
+
+ 000009FF  BA 00000589 R	mov edx,offset passfile             ;passing file's offset to open in edx  
+ 00000A04  E8 00000000 E	call openInputFile                  ;open input file  
+ 00000A09  A3 00000596 R	mov fhandler,eax                    ;storing file handler
+
+ 00000A0E  BA 0000059A R	mov edx, offset tempuser			;reading user name
+ 00000A13  B9 00000003		mov ecx, 3                          ;giving size to read
+ 00000A18  E8 00000000 E	call readfromfile					
+
+				;mov edx, offset tempuser
+				;call writestring
+
+ 00000A1D  A1 00000596 R	mov eax,fhandler					;moving file handler in eax
+ 00000A22  BA 000005AE R	mov edx, offset temppass			
+ 00000A27  B9 00000006		mov ecx, 6							;reading password
+ 00000A2C  E8 00000000 E	call readfromfile
+
+				;mov edx,offset temppass
+				;call writestring
+
+				;call closefile
+ 00000A31  C3			RET
+ 00000A32			pass1 endp
+
+				END main
+
+Microsoft (R) Macro Assembler Version 14.16.27027.1	    12/17/19 12:26:45
 AddTwo.asm						     Symbols 2 - 1
 
 
@@ -328,8 +1478,8 @@ Segments and Groups:
 
 FLAT . . . . . . . . . . . . . .	GROUP
 STACK  . . . . . . . . . . . . .	32 Bit	 00001000 Para	  Stack	  'STACK'	 
-_DATA  . . . . . . . . . . . . .	32 Bit	 0000059B Para	  Public  'DATA'	
-_TEXT  . . . . . . . . . . . . .	32 Bit	 00000025 Para	  Public  'CODE'	
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000C8A Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000A32 Para	  Public  'CODE'	
 
 
 Procedures, parameters, and locals:
@@ -436,9 +1586,64 @@ WriteStackFrame  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External
 WriteString  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
 WriteToFile  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
 WriteWindowsMsg  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
-main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000025 Public STDCALL
+bikeout  . . . . . . . . . . . .	P Near	 00000558 _TEXT	Length= 0000018D Public STDCALL
+  loop1  . . . . . . . . . . . .	L Near	 0000057B _TEXT	
+  loop2  . . . . . . . . . . . .	L Near	 00000593 _TEXT	
+  found  . . . . . . . . . . . .	L Near	 000005C1 _TEXT	
+  copy1  . . . . . . . . . . . .	L Near	 000005EB _TEXT	
+  notFound . . . . . . . . . . .	L Near	 000006D8 _TEXT	
+  _exit  . . . . . . . . . . . .	L Near	 000006E4 _TEXT	
+carout . . . . . . . . . . . . .	P Near	 000006E5 _TEXT	Length= 0000018D Public STDCALL
+  loop1  . . . . . . . . . . . .	L Near	 00000708 _TEXT	
+  loop2  . . . . . . . . . . . .	L Near	 00000720 _TEXT	
+  found  . . . . . . . . . . . .	L Near	 0000074E _TEXT	
+  copy1  . . . . . . . . . . . .	L Near	 00000778 _TEXT	
+  notFound . . . . . . . . . . .	L Near	 00000865 _TEXT	
+  _exit  . . . . . . . . . . . .	L Near	 00000871 _TEXT	
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000027F Public STDCALL
+  wrong  . . . . . . . . . . . .	L Near	 00000048 _TEXT	
+  goout  . . . . . . . . . . . .	L Near	 0000006D _TEXT	
+  T1 . . . . . . . . . . . . . .	L Near	 000000D6 _TEXT	
+  mainpage . . . . . . . . . . .	L Near	 000000F4 _TEXT	
+  parkin . . . . . . . . . . . .	L Near	 0000013C _TEXT	
+  parkout  . . . . . . . . . . .	L Near	 000001A6 _TEXT	
+  viewR  . . . . . . . . . . . .	L Near	 0000020A _TEXT	
+  Tbike  . . . . . . . . . . . .	L Near	 00000214 _TEXT	
+  Tcar . . . . . . . . . . . . .	L Near	 0000021E _TEXT	
+  Tvan . . . . . . . . . . . . .	L Near	 00000228 _TEXT	
+  Toutbike . . . . . . . . . . .	L Near	 00000232 _TEXT	
+  Toutcar  . . . . . . . . . . .	L Near	 0000023C _TEXT	
+  Toutvan  . . . . . . . . . . .	L Near	 00000246 _TEXT	
+  _exit  . . . . . . . . . . . .	L Near	 00000250 _TEXT	
+parkbike . . . . . . . . . . . .	P Near	 0000027F _TEXT	Length= 000000CA Public STDCALL
+  copy . . . . . . . . . . . . .	L Near	 000002D0 _TEXT	
+  copy1  . . . . . . . . . . . .	L Near	 00000324 _TEXT	
+  Full . . . . . . . . . . . . .	L Near	 0000033C _TEXT	
+  exit1  . . . . . . . . . . . .	L Near	 00000348 _TEXT	
+parkcar  . . . . . . . . . . . .	P Near	 00000349 _TEXT	Length= 000000CA Public STDCALL
+  copy . . . . . . . . . . . . .	L Near	 0000039A _TEXT	
+  copy1  . . . . . . . . . . . .	L Near	 000003EE _TEXT	
+  Full . . . . . . . . . . . . .	L Near	 00000406 _TEXT	
+  exit1  . . . . . . . . . . . .	L Near	 00000412 _TEXT	
+parkvan  . . . . . . . . . . . .	P Near	 00000413 _TEXT	Length= 000000CA Public STDCALL
+  copy . . . . . . . . . . . . .	L Near	 00000464 _TEXT	
+  copy1  . . . . . . . . . . . .	L Near	 000004B8 _TEXT	
+  Full . . . . . . . . . . . . .	L Near	 000004D0 _TEXT	
+  exit1  . . . . . . . . . . . .	L Near	 000004DC _TEXT	
+pass1  . . . . . . . . . . . . .	P Near	 000009FF _TEXT	Length= 00000033 Public STDCALL
 printf . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
 scanf  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
+vanout . . . . . . . . . . . . .	P Near	 00000872 _TEXT	Length= 0000018D Public STDCALL
+  loop1  . . . . . . . . . . . .	L Near	 00000895 _TEXT	
+  loop2  . . . . . . . . . . . .	L Near	 000008AD _TEXT	
+  found  . . . . . . . . . . . .	L Near	 000008DB _TEXT	
+  copy1  . . . . . . . . . . . .	L Near	 00000905 _TEXT	
+  notFound . . . . . . . . . . .	L Near	 000009F2 _TEXT	
+  _exit  . . . . . . . . . . . .	L Near	 000009FE _TEXT	
+viewRecords  . . . . . . . . . .	P Near	 000004DD _TEXT	Length= 0000007B Public STDCALL
+  co . . . . . . . . . . . . . .	L Near	 000004F1 _TEXT	
+  co1  . . . . . . . . . . . . .	L Near	 0000051D _TEXT	
+  co2  . . . . . . . . . . . . .	L Near	 00000549 _TEXT	
 wsprintfA  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
 
 
@@ -655,66 +1860,102 @@ VK_UP  . . . . . . . . . . . . .	Number	 00000026h
 WINDOW_BUFFER_SIZE_EVENT . . . .	Number	 00000004h   
 WriteConsoleOutputCharacter  . .	Text   	 WriteConsoleOutputCharacterA
 WriteConsole . . . . . . . . . .	Text   	 WriteConsoleA
-am1  . . . . . . . . . . . . . .	DWord	 00000319 _DATA	
-am2  . . . . . . . . . . . . . .	DWord	 0000031D _DATA	
-am3  . . . . . . . . . . . . . .	DWord	 00000321 _DATA	
+adin . . . . . . . . . . . . . .	Byte	 000007E8 _DATA	
+adout  . . . . . . . . . . . . .	Byte	 00000A0E _DATA	
+a  . . . . . . . . . . . . . . .	DWord	 00000C86 _DATA	
+bikeamount . . . . . . . . . . .	DWord	 00000535 _DATA	
 black  . . . . . . . . . . . . .	Number	 00000000h   
 blue . . . . . . . . . . . . . .	Number	 00000001h   
 brown  . . . . . . . . . . . . .	Number	 00000006h   
+callamount . . . . . . . . . . .	Byte	 00000373 _DATA	
+cal  . . . . . . . . . . . . . .	DWord	 00000C64 _DATA	
+caramount  . . . . . . . . . . .	DWord	 00000539 _DATA	
+carno  . . . . . . . . . . . . .	Byte	 000005C2 _DATA	
+compre . . . . . . . . . . . . .	Byte	 00000C55 _DATA	
+count  . . . . . . . . . . . . .	DWord	 0000054D _DATA	
 cyan . . . . . . . . . . . . . .	Number	 00000003h   
+data1  . . . . . . . . . . . . .	Byte	 000001F0 _DATA	
+data3  . . . . . . . . . . . . .	Byte	 000002A1 _DATA	
+data5  . . . . . . . . . . . . .	Byte	 000002CB _DATA	
+data7  . . . . . . . . . . . . .	Byte	 000002F5 _DATA	
+date0  . . . . . . . . . . . . .	Byte	 00000225 _DATA	
+date1  . . . . . . . . . . . . .	Byte	 00000250 _DATA	
+date2  . . . . . . . . . . . . .	Byte	 00000278 _DATA	
+datein . . . . . . . . . . . . .	DWord	 00000555 _DATA	
+din  . . . . . . . . . . . . . .	Byte	 00000C3F _DATA	
+dout . . . . . . . . . . . . . .	Byte	 00000C4A _DATA	
 exit . . . . . . . . . . . . . .	Text   	 INVOKE ExitProcess,0
 fhandler . . . . . . . . . . . .	DWord	 00000596 _DATA	
+flag1  . . . . . . . . . . . . .	DWord	 00000C70 _DATA	
+flag . . . . . . . . . . . . . .	DWord	 00000C6C _DATA	
 gray . . . . . . . . . . . . . .	Number	 00000008h   
 green  . . . . . . . . . . . . .	Number	 00000002h   
+header2  . . . . . . . . . . . .	Byte	 00000348 _DATA	
+i  . . . . . . . . . . . . . . .	DWord	 00000C68 _DATA	
 lightBlue  . . . . . . . . . . .	Number	 00000009h   
 lightCyan  . . . . . . . . . . .	Number	 0000000Bh   
 lightGray  . . . . . . . . . . .	Number	 00000007h   
 lightGreen . . . . . . . . . . .	Number	 0000000Ah   
 lightMagenta . . . . . . . . . .	Number	 0000000Dh   
 lightRed . . . . . . . . . . . .	Number	 0000000Ch   
+loopcontrolvar . . . . . . . . .	DWord	 00000549 _DATA	
 magenta  . . . . . . . . . . . .	Number	 00000005h   
-msg10  . . . . . . . . . . . . .	Byte	 00000278 _DATA	
-msg11  . . . . . . . . . . . . .	Byte	 0000029A _DATA	
-msg12  . . . . . . . . . . . . .	Byte	 000002BC _DATA	
-msg13  . . . . . . . . . . . . .	Byte	 000002DE _DATA	
-msg14  . . . . . . . . . . . . .	Byte	 000002F9 _DATA	
-msg1 . . . . . . . . . . . . . .	Byte	 000001D0 _DATA	
-msg2 . . . . . . . . . . . . . .	Byte	 000001E1 _DATA	
-msg3 . . . . . . . . . . . . . .	Byte	 000001EE _DATA	
-msg4 . . . . . . . . . . . . . .	Byte	 000001F3 _DATA	
-msg5 . . . . . . . . . . . . . .	Byte	 000001F9 _DATA	
-msg6 . . . . . . . . . . . . . .	Byte	 00000200 _DATA	
-msg7 . . . . . . . . . . . . . .	Byte	 00000216 _DATA	
-msg8 . . . . . . . . . . . . . .	Byte	 0000022C _DATA	
-msg9 . . . . . . . . . . . . . .	Byte	 00000253 _DATA	
-op10 . . . . . . . . . . . . . .	Byte	 00000188 _DATA	
-op11 . . . . . . . . . . . . . .	Byte	 000001A3 _DATA	
-op12 . . . . . . . . . . . . . .	Byte	 000001C0 _DATA	
-op1  . . . . . . . . . . . . . .	Byte	 00000054 _DATA	
-op2  . . . . . . . . . . . . . .	Byte	 000000A6 _DATA	
-op3  . . . . . . . . . . . . . .	Byte	 000000B7 _DATA	
-op4  . . . . . . . . . . . . . .	Byte	 000000C8 _DATA	
-op5  . . . . . . . . . . . . . .	Byte	 000000E0 _DATA	
-op6  . . . . . . . . . . . . . .	Byte	 000000F9 _DATA	
-op7  . . . . . . . . . . . . . .	Byte	 00000124 _DATA	
-op8  . . . . . . . . . . . . . .	Byte	 00000167 _DATA	
-op9  . . . . . . . . . . . . . .	Byte	 00000178 _DATA	
-opt1 . . . . . . . . . . . . . .	DWord	 00000325 _DATA	
-opt7 . . . . . . . . . . . . . .	Byte	 00000137 _DATA	
-opt8 . . . . . . . . . . . . . .	Byte	 00000149 _DATA	
-opt9 . . . . . . . . . . . . . .	Byte	 00000158 _DATA	
-op . . . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+monthin  . . . . . . . . . . . .	DWord	 00000559 _DATA	
+msg10  . . . . . . . . . . . . .	Byte	 00000422 _DATA	
+msg11  . . . . . . . . . . . . .	Byte	 00000444 _DATA	
+msg12  . . . . . . . . . . . . .	Byte	 00000465 _DATA	
+msg13  . . . . . . . . . . . . .	Byte	 00000487 _DATA	
+msg14  . . . . . . . . . . . . .	Byte	 000004AE _DATA	
+msg15  . . . . . . . . . . . . .	Byte	 000004C2 _DATA	
+msg16  . . . . . . . . . . . . .	Byte	 000004DA _DATA	
+msg17  . . . . . . . . . . . . .	Byte	 000004EB _DATA	
+msg18  . . . . . . . . . . . . .	Byte	 000004FC _DATA	
+msg19  . . . . . . . . . . . . .	Byte	 0000050D _DATA	
+msg1 . . . . . . . . . . . . . .	Byte	 000000FE _DATA	
+msg20  . . . . . . . . . . . . .	Byte	 0000051E _DATA	
+msg2 . . . . . . . . . . . . . .	Byte	 0000010D _DATA	
+msg33  . . . . . . . . . . . . .	Byte	 0000012B _DATA	
+msg3 . . . . . . . . . . . . . .	Byte	 0000011D _DATA	
+msg4 . . . . . . . . . . . . . .	Byte	 0000013F _DATA	
+msg5 . . . . . . . . . . . . . .	Byte	 00000171 _DATA	
+msg6 . . . . . . . . . . . . . .	Byte	 000003AC _DATA	
+msg7 . . . . . . . . . . . . . .	Byte	 000003C2 _DATA	
+msg8 . . . . . . . . . . . . . .	Byte	 000003D8 _DATA	
+msg9 . . . . . . . . . . . . . .	Byte	 000003FF _DATA	
+noMatch  . . . . . . . . . . . .	Byte	 00000393 _DATA	
+number . . . . . . . . . . . . .	DWord	 00000551 _DATA	
+occvacancy . . . . . . . . . . .	DWord	 00000545 _DATA	
+op1  . . . . . . . . . . . . . .	Byte	 000001B1 _DATA	
+op2  . . . . . . . . . . . . . .	Byte	 000001C2 _DATA	
+op3  . . . . . . . . . . . . . .	Byte	 000001CD _DATA	
+op4  . . . . . . . . . . . . . .	Byte	 000001D8 _DATA	
+op5  . . . . . . . . . . . . . .	Byte	 000001E4 _DATA	
+opt1 . . . . . . . . . . . . . .	Byte	 0000006E _DATA	
+opt2 . . . . . . . . . . . . . .	Byte	 000000DC _DATA	
+opt3 . . . . . . . . . . . . . .	Byte	 000000ED _DATA	
+opt  . . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+op . . . . . . . . . . . . . . .	Byte	 000001A4 _DATA	
 passfile . . . . . . . . . . . .	Byte	 00000589 _DATA	
-password . . . . . . . . . . . .	DWord	 00000329 _DATA	
+password . . . . . . . . . . . .	Byte	 00000561 _DATA	
+pr1  . . . . . . . . . . . . . .	Byte	 00000C78 _DATA	
+pr2  . . . . . . . . . . . . . .	Byte	 00000C7A _DATA	
+pr3  . . . . . . . . . . . . . .	Byte	 00000C7C _DATA	
 red  . . . . . . . . . . . . . .	Number	 00000004h   
-storage  . . . . . . . . . . . .	DWord	 00000331 _DATA	
-tamount  . . . . . . . . . . . .	DWord	 00000311 _DATA	
-tcount . . . . . . . . . . . . .	DWord	 00000315 _DATA	
-temp . . . . . . . . . . . . . .	Byte	 0000059A _DATA	
-tvacy  . . . . . . . . . . . . .	DWord	 0000030D _DATA	
-username . . . . . . . . . . . .	DWord	 0000032D _DATA	
+siz  . . . . . . . . . . . . . .	DWord	 00000C60 _DATA	
+tamount  . . . . . . . . . . . .	DWord	 00000531 _DATA	
+temppass . . . . . . . . . . . .	Byte	 000005AE _DATA	
+tempuser . . . . . . . . . . . .	Byte	 0000059A _DATA	
+temp . . . . . . . . . . . . . .	DWord	 00000C74 _DATA	
+totalamount  . . . . . . . . . .	DWord	 00000541 _DATA	
+tvacy  . . . . . . . . . . . . .	DWord	 0000052D _DATA	
+username . . . . . . . . . . . .	Byte	 00000575 _DATA	
+vNo  . . . . . . . . . . . . . .	Byte	 00000C34 _DATA	
+value1 . . . . . . . . . . . . .	DWord	 00000C7E _DATA	
+value2 . . . . . . . . . . . . .	DWord	 00000C82 _DATA	
+vanamount  . . . . . . . . . . .	DWord	 0000053D _DATA	
 white  . . . . . . . . . . . . .	Number	 0000000Fh   
 wsprintf . . . . . . . . . . . .	Text   	 wsprintfA
+yearin . . . . . . . . . . . . .	DWord	 0000055D _DATA	
 yellow . . . . . . . . . . . . .	Number	 0000000Eh   
 
 	   0 Warnings

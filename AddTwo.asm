@@ -144,7 +144,7 @@ call crlf
 mov eax,white
 call setTextColor
 
-jmp goout 
+jmp goout
 
 goout:
 
@@ -329,10 +329,6 @@ call setTextColor
 
 ; ***************************** EXIT PROGRAM ************************************
 			_exit:									; Condition for exiting system
-
-
-
-
 
 			    mov edx,offset callamount
 			    call writestring
